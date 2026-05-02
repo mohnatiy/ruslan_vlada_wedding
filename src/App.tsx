@@ -225,7 +225,7 @@ export default function App() {
             >
               <div className="w-48 h-48 sm:w-64 sm:h-64 mx-auto border-8 border-white/20 rounded-full overflow-hidden shadow-[0_0_50px_rgba(255,255,255,0.2)] animate-float">
                 <img 
-                  src="./photo5.jpg" 
+                  src="/photo5.jpg" 
                   alt="Couple" 
                   className="w-full h-full object-cover bg-olive/20"
                 />
@@ -360,7 +360,7 @@ export default function App() {
               {/* Decorative Photo Frame */}
               <div className="max-w-[700px] mx-auto px-4">
                   <img 
-                    src="./photo1.jpg" 
+                    src="/photo1.jpg" 
                     alt="Bride and Groom" 
                     className="w-full object-cover max-h-[70vh] min-h-[300px] sm:min-h-[500px] bg-olive/10 block transition-transform duration-700 hover:scale-105 rounded-xl shadow-lg"
                   />
@@ -421,7 +421,7 @@ export default function App() {
               <div className="max-w-[800px] mx-auto px-4 mb-10">
                 <SoftMinimalFrame>
                   <img 
-                    src="./photo2.jpg" 
+                    src="/photo2.jpg" 
                     alt="Wedding Venue" 
                     className="w-full object-cover max-h-[60vh] min-h-[300px] sm:min-h-[400px] bg-olive/10 block w-full rounded-none sm:rounded-lg"
                   />
@@ -486,7 +486,7 @@ export default function App() {
               <div className="max-w-[600px] mx-auto px-4">
                 <SoftMinimalFrame>
                   <img 
-                    src="./photo3.jpg" 
+                    src="/photo3.jpg" 
                     alt="Dress Code Inspiration" 
                     className="w-full object-cover max-h-[50vh] min-h-[300px] bg-olive/5 block rounded-lg shadow-sm"
                   />
@@ -686,7 +686,7 @@ export default function App() {
           <section className="relative bg-[#2D3A15] py-20 sm:py-32 px-5 text-center text-cream overflow-hidden min-h-[400px] flex items-center justify-center">
             {/* Full-width photo4 background */}
             <div className="absolute inset-0 z-0">
-              <img src="./photo4.jpg" alt="Ruslan and Vlada" className="w-full h-full object-cover object-center bg-[#2D3A15]" />
+              <img src="/photo4.jpg" alt="Ruslan and Vlada" className="w-full h-full object-cover object-center bg-[#2D3A15]" />
               <div className="absolute inset-0 bg-olive/80 mix-blend-multiply" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#2D3A15] via-[#2D3A15]/60 to-transparent opacity-95" />
             </div>
