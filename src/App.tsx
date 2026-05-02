@@ -103,10 +103,12 @@ export default function App() {
                   className="absolute top-0 left-0 w-0 h-0 border-l-[140px] border-l-transparent border-r-[140px] border-r-transparent border-t-[100px] border-t-[#E5D3B3]"
                 />
                 
-                {/* Heart Seal */}
+                {/* Wax Seal */}
                 <div className="absolute top-[40%] left-[50%] -translate-x-[50%] -translate-y-[50%] z-20 group-hover:scale-110 transition-transform duration-500">
-                  <div className="heart-shape animate-pulse-custom flex items-center justify-center">
-                    <span className="rotate-45 font-cursive text-white text-base sm:text-lg absolute top-[-5px] left-[5px] w-full text-center whitespace-nowrap">
+                  <div className="w-[75px] h-[75px] bg-[#c24d67] rounded-full border-4 border-[#a63a52] shadow-lg animate-pulse-custom flex items-center justify-center relative overflow-hidden">
+                    {/* Wax texture mock */}
+                    <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_white_0%,_transparent_70%)]" />
+                    <span className="font-cursive text-white text-xl relative z-10 select-none">
                       R & V
                     </span>
                   </div>

@@ -44,30 +44,4 @@ body {
   animation: float 4s ease-in-out infinite;
 }
 
-.heart-shape {
-  position: relative;
-  width: 70px;
-  height: 70px;
-  background-color: #c24d67;
-  transform: rotate(-45deg);
-}
 
-.heart-shape::before,
-.heart-shape::after {
-  content: "";
-  position: absolute;
-  width: 70px;
-  height: 70px;
-  background-color: #c24d67;
-  border-radius: 50%;
-}
-
-.heart-shape::before {
-  top: -35px;
-  left: 0;
-}
-
-.heart-shape::after {
-  top: 0;
-  left: 35px;
-}
