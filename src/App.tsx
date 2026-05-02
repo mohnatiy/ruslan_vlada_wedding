@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
 import { MapPin, Calendar as CalendarIcon, Heart, Clock, Utensils, Music, GlassWater, Gift, Send, ChevronDown, Bell } from "lucide-react";
 
-const photo1 = "./public/photo1.jpg"; // Main wedding 
-const photo2 = "./public/photo2.jpg"; // Venue
-const photo3 = "./public/photo3.jpg"; // Style
-const photo4 = "./public/photo4.jpg"; // Flowers bg
-const photo5 = "./public/photo5.jpg"; // Couple intro
+import photo1 from './assets/photo1.jpg';
+import photo2 from './assets/photo2.jpg';
+import photo3 from './assets/photo3.jpg';
+import photo4 from './assets/photo4.jpg';
+import photo5 from './assets/photo5.jpg';
 
 const WavyLine = ({ to }: { to: "cream" | "olive" }) => {
   const fill = to === "cream" ? "#FAF9F6" : "#4A5D23";
