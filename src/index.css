@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500&family=Great+Vibes&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+  --font-cursive: "Great Vibes", cursive;
+
+  --color-olive: #4A5D23;
+  --color-cream: #FAF9F6;
+  --color-pink: #e57399;
+  --color-gold: #D4AF37;
+}
+
+body {
+  @apply bg-olive text-cream font-sans overflow-x-hidden;
+}
+
+@keyframes pulse-custom {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(194, 77, 103, 0.7); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(194, 77, 103, 0); }
+  100% { transform: scale(1); }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-pulse-custom {
+  animation: pulse-custom 2s infinite;
+}
+
+.animate-sparkle {
+  animation: sparkle 3s infinite;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.heart-shape {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  background-color: #c24d67;
+  transform: rotate(-45deg);
+}
+
+.heart-shape::before,
+.heart-shape::after {
+  content: "";
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  background-color: #c24d67;
+  border-radius: 50%;
+}
+
+.heart-shape::before {
+  top: -35px;
+  left: 0;
+}
+
+.heart-shape::after {
+  top: 0;
+  left: 35px;
+}
