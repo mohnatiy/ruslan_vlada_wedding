@@ -174,7 +174,7 @@ export default function App() {
             >
               <div className="w-48 h-48 sm:w-64 sm:h-64 mx-auto border-8 border-white/20 rounded-full overflow-hidden shadow-[0_0_50px_rgba(255,255,255,0.2)] animate-float">
                 <img 
-                  src="/photo1.jpg" 
+                  src="photo1.jpg" 
                   alt="Couple" 
                   className="w-full h-full object-cover"
                 />
@@ -312,7 +312,7 @@ export default function App() {
               <div className="max-w-[700px] mx-auto px-4">
                 <OrnateFrame>
                   <img 
-                    src="/photo1.jpg" 
+                    src="photo1.jpg" 
                     alt="Bride and Groom" 
                     className="w-full object-cover max-h-[70vh] block transition-transform duration-700 hover:scale-105"
                   />
@@ -360,7 +360,7 @@ export default function App() {
               <div className="max-w-[800px] mx-auto px-4 mb-10">
                 <VintageFrame>
                   <img 
-                    src="/photo2.jpg" 
+                    src="photo2.jpg" 
                     alt="Wedding Venue" 
                     className="w-full object-cover max-h-[60vh] block"
                   />
@@ -468,9 +468,9 @@ export default function App() {
                     const formData = new FormData(form);
                     
                     const data = {
-                      name: formData.get("name") || "",
-                      wishes: formData.get("wishes") || "",
-                      drinks: formData.get("drinks") || ""
+                      field1: formData.get("name") || "",
+                      field2: formData.get("wishes") || "",
+                      field3: formData.get("drinks") || ""
                     };
                     
                     const scriptUrl = "https://script.google.com/macros/s/AKfycbwacSs7Rd7bNs4kXA0H8krwHDJ4805PhLPhmdLfHcnZ8dWygwlTV3uQ7wOeMsiJK45N/exec"; 
