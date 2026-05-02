@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { MapPin, Calendar as CalendarIcon, Heart, Clock, Utensils, Music, GlassWater } from "lucide-react";
+import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
+import { MapPin, Calendar as CalendarIcon, Heart, Clock, Utensils, Music, GlassWater, Gift, Send, ChevronDown, Bell } from "lucide-react";
 import photo1 from './photo1.jpg';
 import photo2 from './photo2.jpg';
+import photo4 from './photo4.jpg';
+import photo5 from './photo5.jpg';
 
 const WavyLine = ({ to }: { to: "cream" | "olive" }) => {
   const fill = to === "cream" ? "#FAF9F6" : "#4A5D23";
@@ -25,75 +27,33 @@ const WavyLine = ({ to }: { to: "cream" | "olive" }) => {
   );
 };
 
-const VintageFrame = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
-  <div className={`relative p-6 sm:p-10 ${className}`}>
-    {/* Frame Background Layer */}
-    <div className="absolute inset-4 sm:inset-6 bg-cream shadow-2xl z-0" />
-    
-    {/* Vine Corner - Top Left */}
-    <svg className="absolute top-0 left-0 w-16 h-16 sm:w-24 sm:h-24 text-gold z-20" viewBox="0 0 100 100">
-      <path d="M10,90 Q10,10 90,10" fill="none" stroke="currentColor" strokeWidth="1.5" />
-      <circle cx="10" cy="90" r="2" fill="currentColor" />
-      <path d="M15,50 Q25,25 50,15" fill="none" stroke="currentColor" strokeWidth="1" />
-      <path d="M10,70 C10,30 40,10 80,10" fill="none" stroke="currentColor" strokeWidth="1" />
-      <path d="M85,10 L95,10" stroke="currentColor" strokeWidth="2" />
-      <path d="M10,85 L10,95" stroke="currentColor" strokeWidth="2" />
-    </svg>
-    
-    {/* Vine Corner - Top Right */}
-    <svg className="absolute top-0 right-0 w-16 h-16 sm:w-24 sm:h-24 text-gold z-20 scale-x-[-1]" viewBox="0 0 100 100">
-      <path d="M10,90 Q10,10 90,10" fill="none" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M15,50 Q25,25 50,15" fill="none" stroke="currentColor" strokeWidth="1" />
-      <circle cx="10" cy="90" r="2" fill="currentColor" />
-    </svg>
-
-    {/* Vine Corner - Bottom Left */}
-    <svg className="absolute bottom-0 left-0 w-16 h-16 sm:w-24 sm:h-24 text-gold z-20 scale-y-[-1]" viewBox="0 0 100 100">
-      <path d="M10,90 Q10,10 90,10" fill="none" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M15,50 Q25,25 50,15" fill="none" stroke="currentColor" strokeWidth="1" />
-      <circle cx="10" cy="90" r="2" fill="currentColor" />
-    </svg>
-
-    {/* Vine Corner - Bottom Right */}
-    <svg className="absolute bottom-0 right-0 w-16 h-16 sm:w-24 sm:h-24 text-gold z-20 scale-[-1]" viewBox="0 0 100 100">
-      <path d="M10,90 Q10,10 90,10" fill="none" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M15,50 Q25,25 50,15" fill="none" stroke="currentColor" strokeWidth="1" />
-      <circle cx="10" cy="90" r="2" fill="currentColor" />
-    </svg>
-
-    <div className="relative z-10 overflow-hidden rounded-sm border border-gold/10">
+const SoftMinimalFrame = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
+  <div className={`relative p-2 sm:p-4 bg-white/50 backdrop-blur-sm rounded-[40px] shadow-[0_15px_30px_rgba(0,0,0,0.1)] border border-white mx-auto ${className}`}>
+    <div className="absolute inset-0 border-[2px] border-olive/15 rounded-[40px] m-2 pointer-events-none" />
+    <div className="relative z-10 overflow-hidden rounded-[32px]">
       {children}
     </div>
   </div>
 );
 
-const OrnateFrame = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
-  <div className={`relative p-8 sm:p-12 ${className}`}>
-    <div className="absolute inset-3 sm:inset-5 bg-cream shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-0 rounded-tl-[60px] rounded-br-[60px]" />
+const ArchedWindowFrame = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
+  <div className={`relative mx-auto p-3 sm:p-5 ${className} w-full`}>
+    {/* Frame Background */}
+    <div className="absolute inset-0 bg-cream/95 shadow-[0_20px_50px_rgba(0,0,0,0.3)] rounded-t-full rounded-b-xl border border-gold/30" />
     
-    <div className="absolute inset-5 sm:inset-7 border border-gold/40 z-20 pointer-events-none rounded-tl-[50px] rounded-br-[50px]" />
-    <div className="absolute inset-[26px] sm:inset-[34px] border border-gold/20 z-20 pointer-events-none rounded-tl-[40px] rounded-br-[40px]" />
+    {/* Inner dashed border */}
+    <div className="absolute inset-2 sm:inset-3 border-[1.5px] border-dashed border-gold/60 rounded-t-full rounded-b-xl pointer-events-none" />
     
-    {/* Decorative Flower - Top Left */}
-    <svg className="absolute top-2 left-2 w-16 h-16 sm:w-20 sm:h-20 text-gold z-30 pointer-events-none" viewBox="0 0 100 100">
-      <path d="M10,90 Q40,30 90,10 C60,40 20,40 10,90 Z" fill="currentColor" opacity="0.8" />
-      <path d="M10,90 Q30,60 60,60 Q30,30 10,90 Z" fill="currentColor" opacity="0.6" />
-      <circle cx="20" cy="20" r="4" fill="currentColor" />
-      <circle cx="35" cy="15" r="2" fill="currentColor" />
-      <circle cx="15" cy="35" r="2" fill="currentColor" />
-    </svg>
-
-    {/* Decorative Flower - Bottom Right */}
-    <svg className="absolute bottom-2 right-2 w-16 h-16 sm:w-20 sm:h-20 text-gold z-30 pointer-events-none rotate-180" viewBox="0 0 100 100">
-      <path d="M10,90 Q40,30 90,10 C60,40 20,40 10,90 Z" fill="currentColor" opacity="0.8" />
-      <path d="M10,90 Q30,60 60,60 Q30,30 10,90 Z" fill="currentColor" opacity="0.6" />
-      <circle cx="20" cy="20" r="4" fill="currentColor" />
-      <circle cx="35" cy="15" r="2" fill="currentColor" />
-      <circle cx="15" cy="35" r="2" fill="currentColor" />
-    </svg>
-
-    <div className="relative z-10 overflow-hidden rounded-[20px] rounded-tl-[42px] rounded-br-[42px] border border-gold/10">
+    {/* Content Container */}
+    <div className="relative z-10 overflow-hidden shadow-inner border border-olive/10 h-full" style={{ borderTopLeftRadius: '9999px', borderTopRightRadius: '9999px', borderBottomLeftRadius: '0.75rem', borderBottomRightRadius: '0.75rem' }}>
       {children}
+    </div>
+
+    {/* Elegant embellishment at bottom */}
+    <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 flex items-end gap-1 text-gold z-20 drop-shadow-md">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="opacity-80">
+        <path d="M12 2C9 2 7 5 9 8C6 6 2 8 4 11C2 14 6 16 9 14C7 17 9 20 12 20C15 20 17 17 15 14C18 16 22 14 20 11C22 8 18 6 15 8C17 5 15 2 12 2Z" />
+      </svg>
     </div>
   </div>
 );
@@ -109,8 +69,69 @@ const FadeInWhenVisible = ({ children, delay = 0 }: { children: React.ReactNode;
   </motion.div>
 );
 
+const CountdownTimer = () => {
+  const targetDate = new Date('2026-07-19T16:00:00').getTime();
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance < 0) {
+        clearInterval(interval);
+        return;
+      }
+
+      setTimeLeft({
+        days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+        seconds: Math.floor((distance % (1000 * 60)) / 1000)
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [targetDate]);
+
+  return (
+    <div className="flex justify-center gap-3 sm:gap-6 mt-10">
+      {[
+        { label: "Дней", value: timeLeft.days },
+        { label: "Часов", value: timeLeft.hours },
+        { label: "Минут", value: timeLeft.minutes },
+        { label: "Секунд", value: timeLeft.seconds }
+      ].map((item, idx) => (
+        <div key={idx} className="flex flex-col items-center">
+          <div className="w-14 h-14 sm:w-20 sm:h-20 bg-olive rounded-full flex items-center justify-center text-cream font-serif text-xl sm:text-3xl border-2 border-gold/40 shadow-lg mb-2">
+            {item.value}
+          </div>
+          <span className="text-[10px] sm:text-xs uppercase tracking-wider text-olive/80 font-bold">{item.label}</span>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalScroll = document.documentElement.scrollTop;
+      const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scroll = `${(totalScroll / windowHeight) * 100}%`;
+      setScrollProgress((totalScroll / windowHeight) * 100);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Sparkles generation
   const sparkles = Array.from({ length: 20 }).map((_, i) => ({
@@ -176,7 +197,7 @@ export default function App() {
             >
               <div className="w-48 h-48 sm:w-64 sm:h-64 mx-auto border-8 border-white/20 rounded-full overflow-hidden shadow-[0_0_50px_rgba(255,255,255,0.2)] animate-float">
                 <img 
-                  src={photo1} 
+                  src={photo5} 
                   alt="Couple" 
                   className="w-full h-full object-cover"
                 />
@@ -191,31 +212,14 @@ export default function App() {
               onClick={() => setIsOpen(true)}
             >
               {/* Envelope Body */}
-              <div className="w-[280px] h-[190px] bg-cream rounded-sm shadow-[0_40px_80px_rgba(0,0,0,0.6)] relative overflow-visible">
+              <div className="w-[280px] h-[190px] bg-[#f9e4e8] rounded-sm shadow-[0_40px_80px_rgba(0,0,0,0.6)] relative overflow-visible">
                 {/* Flap */}
                 <div 
-                  className="absolute top-0 left-0 w-0 h-0 border-l-[140px] border-l-transparent border-r-[140px] border-r-transparent border-t-[100px] border-t-[#E5D3B3] z-30"
+                  className="absolute top-0 left-0 w-0 h-0 border-l-[140px] border-l-transparent border-r-[140px] border-r-transparent border-t-[100px] border-t-[#f2d0d8] z-30"
                 />
                 
-                {/* Heart Seal */}
-                <div className="absolute top-[40%] left-[50%] -translate-x-[50%] -translate-y-[50%] z-40 group-hover:scale-110 transition-transform duration-500">
-                  <div className="w-[75px] h-[75px] bg-[#c24d67] rounded-full border-4 border-[#a63a52] shadow-lg animate-pulse-custom flex items-center justify-center relative overflow-hidden">
-                    {/* Wax texture mock */}
-                    <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_white_0%,_transparent_70%)]" />
-                    {/* Tiny flower icon on wax seal */}
-                    <div className="absolute top-1 text-white/30 rotate-45">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z" fill="currentColor" />
-                      </svg>
-                    </div>
-                    <span className="font-cursive text-white text-xl relative z-10 select-none">
-                      R & V
-                    </span>
-                  </div>
-                </div>
-
                 {/* Drawn flower base on envelope */}
-                <div className="absolute bottom-1 left-1/2 -translate-x-1/2 text-olive/30 w-32 h-16 flex justify-center items-end pointer-events-none z-10">
+                <div className="absolute bottom-1 left-1/2 -translate-x-1/2 text-[#c99aa3] w-32 h-16 flex justify-center items-end pointer-events-none z-10">
                    <svg width="60" height="40" viewBox="0 0 100 60">
                      <path d="M50,60 Q45,30 20,25 Q30,40 50,60" fill="currentColor" />
                      <path d="M50,60 Q55,30 80,25 Q70,40 50,60" fill="currentColor" />
@@ -304,6 +308,21 @@ export default function App() {
       {/* MAIN CONTENT */}
       {isOpen && (
         <main className="relative z-10">
+          {/* Scroll Cat Progress */}
+          <div className="fixed right-2 sm:right-6 top-0 bottom-0 w-10 pointer-events-none z-50">
+            <div 
+              className="absolute left-1/2 -translate-x-1/2 text-olive drop-shadow-md transition-all duration-300"
+              style={{ top: `${scrollProgress}%`, marginTop: '-20px' }}
+            >
+              <motion.div
+                animate={{ y: [0, -5, 0] }}
+                transition={{ repeat: Infinity, duration: 0.5 }}
+              >
+                <ChevronDown size={32} strokeWidth={2} className="text-olive drop-shadow-sm opacity-80" />
+              </motion.div>
+            </div>
+          </div>
+
           {/* SECTION 1: WELCOME */}
           <section className="bg-olive py-20 px-4 text-center">
             <FadeInWhenVisible>
@@ -312,13 +331,11 @@ export default function App() {
               
               {/* Decorative Photo Frame */}
               <div className="max-w-[700px] mx-auto px-4">
-                <OrnateFrame>
                   <img 
                     src={photo1} 
                     alt="Bride and Groom" 
-                    className="w-full object-cover max-h-[70vh] block transition-transform duration-700 hover:scale-105"
+                    className="w-full object-cover max-h-[70vh] block transition-transform duration-700 hover:scale-105 rounded-xl shadow-lg"
                   />
-                </OrnateFrame>
               </div>
               
               <p className="font-cursive text-3xl mt-12 italic text-gold px-5">Однажды и навсегда...</p>
@@ -347,6 +364,20 @@ export default function App() {
                 </div>
               </div>
               <p className="mt-6 font-medium text-olive/80">Ждем вас к 16:00</p>
+              
+              <CountdownTimer />
+
+              <div className="mt-10 flex justify-center">
+                <a 
+                  href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Свадьба+Романа+и+Виктории&dates=20260719T160000/20260719T230000&details=Свадебное+торжество&location=Ресторан+%C2%ABОнегин%C2%BB"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-olive hover:bg-olive/90 text-cream px-6 py-3 rounded-full font-serif transition-all shadow-[0_4px_14px_rgba(74,93,35,0.3)] hover:shadow-[0_6px_20px_rgba(74,93,35,0.4)] hover:-translate-y-1 active:translate-y-0"
+                >
+                  <Bell className="w-5 h-5" />
+                  <span>Поставить будильник</span>
+                </a>
+              </div>
             </FadeInWhenVisible>
           </section>
 
@@ -360,18 +391,18 @@ export default function App() {
               
               {/* Decorative Photo Frame for Location */}
               <div className="max-w-[800px] mx-auto px-4 mb-10">
-                <VintageFrame>
+                <SoftMinimalFrame>
                   <img 
                     src={photo2} 
                     alt="Wedding Venue" 
                     className="w-full object-cover max-h-[60vh] block"
                   />
-                </VintageFrame>
+                </SoftMinimalFrame>
               </div>
 
               <p className="text-sm mb-10 opacity-90 max-w-[300px] mx-auto px-5 italic">Тишковское лесничество, Московская обл.</p>
 
-              <div className="rounded-2xl overflow-hidden border-4 border-white mx-auto max-w-[90%] shadow-xl">
+              <div className="rounded-2xl overflow-hidden border-4 border-white mx-auto max-w-[90%] shadow-xl mb-8">
                 <iframe 
                   src="https://yandex.ru/map-widget/v1/?ll=37.717537%2C56.074255&z=15&pt=37.717537%2C56.074255%2Cpm2rdl" 
                   width="100%" 
@@ -380,6 +411,15 @@ export default function App() {
                   title="Map to Onegin"
                 />
               </div>
+
+              <a 
+                href="https://yandex.ru/maps/?rtext=~56.074255,37.717537" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-block px-8 py-4 bg-cream text-olive rounded-full font-bold uppercase tracking-widest text-sm shadow-[0_5px_15px_rgba(0,0,0,0.2)] hover:scale-105 hover:bg-gold hover:text-cream transition-all duration-300"
+              >
+                Построить маршрут
+              </a>
             </FadeInWhenVisible>
           </section>
 
@@ -455,27 +495,45 @@ export default function App() {
 
           <WavyLine to="cream" />
 
-          {/* SECTION 6: RSVP */}
-          <section className="bg-cream py-24 px-5 pb-32 text-gray-800">
+          {/* SECTION 6: GIFTS */}
+          <section className="bg-cream py-20 px-5 text-center text-gray-800">
             <FadeInWhenVisible>
-              <h2 className="font-serif text-3xl mb-10 text-center uppercase tracking-widest text-olive">Анкета гостя</h2>
-              <p className="text-center text-xs mb-8 opacity-60 max-w-[300px] mx-auto italic">
-                Для отправки ответов в Google Таблицы необходимо вставить URL вашего Google Script в код
-              </p>
-              <div className="max-w-[400px] mx-auto bg-white/50 backdrop-blur-sm p-8 rounded-3xl shadow-xl space-y-6 border border-olive/10">
+              <div className="max-w-[500px] mx-auto bg-white/40 p-8 sm:p-12 rounded-3xl shadow-lg border border-gold/10">
+                <Gift className="w-12 h-12 mx-auto text-gold mb-6" />
+                <h2 className="font-serif text-3xl mb-6 uppercase tracking-widest text-olive">Пожелания по подаркам</h2>
+                <p className="text-sm leading-relaxed opacity-90 max-w-[400px] mx-auto text-olive/90">
+                  Мы не хотим обременять вас выбором особенного подарка...<br /><br />
+                  Будем рады, если вы поможете нам исполнить наши мечты!<br />
+                  В качестве подарков мы с благодарностью примем конверты, валюту, любые драгметаллы, ценные бумаги или криптовалюту.
+                </p>
+              </div>
+            </FadeInWhenVisible>
+          </section>
+
+          <WavyLine to="olive" />
+
+          {/* SECTION 7: RSVP */}
+          <section className="bg-olive py-24 px-5 text-cream">
+            <FadeInWhenVisible>
+              <h2 className="font-serif text-3xl mb-10 text-center uppercase tracking-widest text-cream">Анкета гостя</h2>
+              <div className="max-w-[400px] mx-auto bg-white p-8 rounded-3xl shadow-xl space-y-6 border border-olive/10 text-gray-800">
                 <form 
                   onSubmit={(e) => {
                     e.preventDefault();
                     const form = e.target as HTMLFormElement;
                     const formData = new FormData(form);
                     
+                    const drinks = formData.getAll("drinks").join(", ");
+                    const transport = formData.get("transport") || "";
+                    
                     const data = {
-                      field1: formData.get("name") || "",
-                      field2: formData.get("wishes") || "",
-                      field3: formData.get("drinks") || ""
+                      name: formData.get("name") || "",
+                      wishes: formData.get("wishes") || "",
+                      drinks: drinks,
+                      transport: transport
                     };
                     
-                    const scriptUrl = "https://script.google.com/macros/s/AKfycbwacSs7Rd7bNs4kXA0H8krwHDJ4805PhLPhmdLfHcnZ8dWygwlTV3uQ7wOeMsiJK45N/exec"; 
+                    const scriptUrl = "https://script.google.com/macros/s/AKfycbzrFPHHSC_d9wS8qx8-NdcMdlWMOAfoKMuxEg-Mr-PFg3aDbpncdFk0LUK9LIAAIYRZ/exec"; 
 
                     if (scriptUrl) {
                       fetch(scriptUrl, { 
@@ -510,21 +568,39 @@ export default function App() {
                   
                   <div className="mb-4">
                     <label className="block text-xs font-bold uppercase tracking-widest text-olive mb-2">Пожелания по меню</label>
-                    <select name="wishes" className="w-full bg-white border border-gray-200 p-4 rounded-xl focus:ring-2 focus:ring-olive/20 outline-none appearance-none">
-                      <option>Мясо</option>
-                      <option>Рыба</option>
-                      <option>Вегетарианское</option>
-                    </select>
+                    <div className="relative">
+                      <select name="wishes" className="w-full bg-white border border-gray-200 p-4 pr-10 rounded-xl focus:ring-2 focus:ring-olive/20 outline-none appearance-none truncate">
+                        <option>Миньон с картофельным гратеном</option>
+                        <option>Перепелка с жареным кремом из картофеля с белыми грибами</option>
+                        <option>Стейк лосося с кремом из сельдерея, сливочным соусом и красной икрой</option>
+                      </select>
+                      <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                    </div>
                   </div>
 
                   <div className="mb-6">
-                    <label className="block text-xs font-bold uppercase tracking-widest text-olive mb-2">Напитки</label>
-                    <select name="drinks" className="w-full bg-white border border-gray-200 p-4 rounded-xl focus:ring-2 focus:ring-olive/20 outline-none appearance-none">
-                      <option>Вино (белое/красное)</option>
-                      <option>Игристое</option>
-                      <option>Крепкий алкоголь</option>
-                      <option>Безалкогольные</option>
-                    </select>
+                    <label className="block text-xs font-bold uppercase tracking-widest text-olive mb-3">Напитки (можно несколько)</label>
+                    <div className="space-y-2">
+                      {["Вино (белое/красное)", "Игристое", "Крепкий алкоголь", "Безалкогольные"].map((drink) => (
+                        <label key={drink} className="flex items-center gap-3 text-sm cursor-pointer hover:bg-olive/5 p-2 rounded-lg transition-colors">
+                          <input type="checkbox" name="drinks" value={drink} className="w-5 h-5 accent-olive cursor-pointer" />
+                          <span>{drink}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mb-8">
+                    <label className="block text-xs font-bold uppercase tracking-widest text-olive mb-2">Как планируете добираться?</label>
+                    <div className="relative">
+                      <select name="transport" className="w-full bg-white border border-gray-200 p-4 pr-10 rounded-xl focus:ring-2 focus:ring-olive/20 outline-none appearance-none truncate">
+                        <option>На трансфере от метро</option>
+                        <option>На своей машине</option>
+                        <option>Самостоятельно (такси)</option>
+                        <option>Своим ходом</option>
+                      </select>
+                      <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                    </div>
                   </div>
                   
                   <motion.button 
@@ -540,9 +616,63 @@ export default function App() {
             </FadeInWhenVisible>
           </section>
 
+          <WavyLine to="cream" />
+
+          {/* SECTION 8: CONTACTS & CHAT */}
+          <section className="bg-cream py-20 px-5 text-center text-gray-800">
+            <FadeInWhenVisible>
+              <h2 className="font-serif text-2xl mb-8 uppercase tracking-widest text-olive">Организация и связи</h2>
+              <div className="flex flex-col sm:flex-row justify-center items-center gap-8 max-w-[600px] mx-auto">
+                <a href="#" className="flex flex-col items-center group">
+                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-500 group-hover:scale-110 transition-transform shadow-md">
+                    <Send size={24} />
+                  </div>
+                  <span className="mt-4 font-bold text-sm tracking-wide">Чат гостей (Telegram)</span>
+                  <span className="text-xs opacity-60">Познакомиться и узнать все новости</span>
+                </a>
+                
+                <a href="#" className="flex flex-col items-center group">
+                  <div className="w-16 h-16 bg-olive/10 rounded-full flex items-center justify-center text-olive group-hover:scale-110 transition-transform shadow-md">
+                    <Heart size={24} />
+                  </div>
+                  <span className="mt-4 font-bold text-sm tracking-wide">Контакты организатора</span>
+                  <span className="text-xs opacity-60">Связь по любым вопросам</span>
+                </a>
+              </div>
+            </FadeInWhenVisible>
+          </section>
+
+          <WavyLine to="olive" />
+
+          {/* CLOSING SECTION "ДО ВСТРЕЧИ! С ЛЮБОВЬЮ, РУСЛАН И ВЛАДА" */}
+          <section className="relative bg-[#2D3A15] py-20 sm:py-32 px-5 text-center text-cream overflow-hidden min-h-[400px] flex items-center justify-center">
+            {/* Full-width photo4 background */}
+            <div className="absolute inset-0 z-0">
+              <img src={photo4} alt="Ruslan and Vlada" className="w-full h-full object-cover object-center" />
+              <div className="absolute inset-0 bg-olive/80 mix-blend-multiply" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#2D3A15] via-[#2D3A15]/60 to-transparent opacity-95" />
+            </div>
+            
+            <FadeInWhenVisible className="w-full z-10">
+              <div className="relative z-10 flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-8 sm:gap-16 w-full max-w-[800px] mx-auto px-4">
+                <h3 className="font-serif text-4xl sm:text-6xl uppercase tracking-[0.1em] sm:tracking-[0.2em] text-gold text-center sm:text-left leading-tight drop-shadow-2xl">
+                  ДО ВСТРЕЧИ!
+                </h3>
+                <div className="text-center sm:text-right drop-shadow-xl mt-4 sm:mt-0">
+                  <h3 className="font-serif text-xl sm:text-2xl tracking-[0.1em] sm:tracking-[0.2em] uppercase text-cream/90">
+                    С ЛЮБОВЬЮ,
+                  </h3>
+                  <p className="font-serif text-2xl sm:text-4xl text-gold mt-3 uppercase tracking-widest leading-tight">
+                    РУСЛАН И<br />ВЛАДА
+                  </p>
+                </div>
+              </div>
+            </FadeInWhenVisible>
+          </section>
+
           {/* FOOTER */}
-          <footer className="bg-olive py-12 text-center border-t border-cream/10">
-            <p className="font-cursive text-4xl text-gold mb-2">Руслан & Влада</p>
+          <footer className="bg-[#2D3A15] py-8 text-center text-cream border-t border-gold/20">
+            <p className="font-cursive text-2xl text-gold mb-2">Руслан & Влада</p>
             <p className="text-[10px] uppercase tracking-[4px] opacity-60">2026.07.19</p>
           </footer>
         </main>
