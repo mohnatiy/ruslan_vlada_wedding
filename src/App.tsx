@@ -475,22 +475,19 @@ export default function App() {
                     e.preventDefault();
                     const form = e.target as HTMLFormElement;
                     const formData = new FormData(form);
-                    const data = {
-                      name: formData.get("name"),
-                      wishes: formData.get("wishes"),
-                      drinks: formData.get("drinks")
-                    };
+                    
+                    const urlParams = new URLSearchParams();
+                    urlParams.append("name", formData.get("name") as string);
+                    urlParams.append("wishes", formData.get("wishes") as string);
+                    urlParams.append("drinks", formData.get("drinks") as string);
                     
                     const scriptUrl = "https://script.google.com/macros/s/AKfycbwacSs7Rd7bNs4kXA0H8krwHDJ4805PhLPhmdLfHcnZ8dWygwlTV3uQ7wOeMsiJK45N/exec"; 
 
                     if (scriptUrl) {
                       fetch(scriptUrl, { 
                         method: "POST", 
-                        body: JSON.stringify(data), 
-                        mode: "no-cors",
-                        headers: {
-                          "Content-Type": "text/plain;charset=utf-8"
-                        }
+                        body: urlParams, 
+                        mode: "no-cors"
                       })
                         .then(() => alert("Спасибо! Ваш ответ отправлен."))
                         .catch((error) => {
@@ -498,8 +495,9 @@ export default function App() {
                           alert("Ошибка при отправке.");
                         });
                     } else {
-                      console.log("Form Data:", data);
-                      alert("Форма работает! Ваши данные: " + JSON.stringify(data) + "\n\nДля реальной отправки в Google Таблицы нужен URL скрипта.");
+                      const dataObj = Object.fromEntries(urlParams.entries());
+                      console.log("Form Data:", dataObj);
+                      alert("Форма работает! Ваши данные: " + JSON.stringify(dataObj) + "\n\nДля реальной отправки в Google Таблицы нужен URL скрипта.");
                     }
                   }}
                 >
