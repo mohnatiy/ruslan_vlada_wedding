@@ -2,21 +2,21 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { MapPin, Calendar as CalendarIcon, Heart, Clock, Utensils, Music, GlassWater } from "lucide-react";
 
-const TornPaper = ({ to }: { to: "cream" | "olive" }) => {
+const WavyLine = ({ to }: { to: "cream" | "olive" }) => {
   const fill = to === "cream" ? "#FAF9F6" : "#4A5D23";
-  // More controlled jagged edge to prevent "bleeding" or floating gaps
+  const bg = to === "cream" ? "bg-olive" : "bg-cream";
+  
   return (
-    <div className="w-full h-[30px] relative z-20 select-none pointer-events-none overflow-hidden">
+    <div className={`w-full relative z-20 select-none pointer-events-none -my-[1px] ${bg}`}>
       <svg
-        viewBox="0 0 1200 40"
+        viewBox="0 0 1200 100"
         preserveAspectRatio="none"
-        className="w-full h-full block"
+        className="w-full h-[30px] sm:h-[45px] block"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M0,0 L1200,0 L1200,10 L1190,15 L1175,8 L1160,20 L1145,12 L1130,22 L1115,10 L1100,18 L1085,8 L1070,20 L1055,12 L1040,22 L1025,10 L1010,18 L995,8 L980,20 L965,12 L950,22 L935,10 L920,18 L905,8 L890,20 L875,12 L860,22 L845,10 L830,18 L815,8 L800,20 L785,12 L770,22 L755,10 L740,18 L725,8 L710,20 L695,12 L680,22 L665,10 L650,18 L635,8 L620,20 L605,12 L590,22 L575,10 L560,18 L545,8 L530,20 L515,12 L500,22 L485,10 L470,18 L455,8 L440,20 L425,12 L410,22 L395,10 L380,18 L365,8 L350,20 L335,12 L320,22 L305,10 L290,18 L275,8 L260,20 L245,12 L230,22 L215,10 L200,18 L185,8 L170,20 L155,12 L140,22 L125,10 L110,18 L95,8 L80,20 L65,12 L50,22 L35,10 L20,18 L0,5 Z"
+          d="M0,100 L0,50 C150,100 350,0 600,50 C850,100 1050,0 1200,50 L1200,100 Z"
           fill={fill}
-          className={to === 'cream' ? 'origin-center' : 'origin-center rotate-180'}
         />
       </svg>
     </div>
@@ -65,6 +65,37 @@ const VintageFrame = ({ children, className = "" }: { children: React.ReactNode;
   </div>
 );
 
+const OrnateFrame = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
+  <div className={`relative p-8 sm:p-12 ${className}`}>
+    <div className="absolute inset-3 sm:inset-5 bg-cream shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-0 rounded-tl-[60px] rounded-br-[60px]" />
+    
+    <div className="absolute inset-5 sm:inset-7 border border-gold/40 z-20 pointer-events-none rounded-tl-[50px] rounded-br-[50px]" />
+    <div className="absolute inset-[26px] sm:inset-[34px] border border-gold/20 z-20 pointer-events-none rounded-tl-[40px] rounded-br-[40px]" />
+    
+    {/* Decorative Flower - Top Left */}
+    <svg className="absolute top-2 left-2 w-16 h-16 sm:w-20 sm:h-20 text-gold z-30 pointer-events-none" viewBox="0 0 100 100">
+      <path d="M10,90 Q40,30 90,10 C60,40 20,40 10,90 Z" fill="currentColor" opacity="0.8" />
+      <path d="M10,90 Q30,60 60,60 Q30,30 10,90 Z" fill="currentColor" opacity="0.6" />
+      <circle cx="20" cy="20" r="4" fill="currentColor" />
+      <circle cx="35" cy="15" r="2" fill="currentColor" />
+      <circle cx="15" cy="35" r="2" fill="currentColor" />
+    </svg>
+
+    {/* Decorative Flower - Bottom Right */}
+    <svg className="absolute bottom-2 right-2 w-16 h-16 sm:w-20 sm:h-20 text-gold z-30 pointer-events-none rotate-180" viewBox="0 0 100 100">
+      <path d="M10,90 Q40,30 90,10 C60,40 20,40 10,90 Z" fill="currentColor" opacity="0.8" />
+      <path d="M10,90 Q30,60 60,60 Q30,30 10,90 Z" fill="currentColor" opacity="0.6" />
+      <circle cx="20" cy="20" r="4" fill="currentColor" />
+      <circle cx="35" cy="15" r="2" fill="currentColor" />
+      <circle cx="15" cy="35" r="2" fill="currentColor" />
+    </svg>
+
+    <div className="relative z-10 overflow-hidden rounded-[20px] rounded-tl-[42px] rounded-br-[42px] border border-gold/10">
+      {children}
+    </div>
+  </div>
+);
+
 const FadeInWhenVisible = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => (
   <motion.div
     initial={{ opacity: 0, y: 30 }}
@@ -85,7 +116,27 @@ export default function App() {
     top: `${Math.random() * 100}%`,
     left: `${Math.random() * 100}%`,
     delay: `${Math.random() * 3}s`,
-    size: `${Math.random() * 4 + 2}px`,
+    size: `${Math.random() * 2 + 1}px`,
+  }));
+
+  // Background flowers generation
+  const flowers = Array.from({ length: 12 }).map((_, i) => ({
+    id: i,
+    top: `${Math.random() * 90 + 5}%`,
+    left: `${Math.random() * 90 + 5}%`,
+    rotation: `${Math.random() * 360}deg`,
+    scale: Math.random() * 0.2 + 0.15,
+    opacity: Math.random() * 0.15 + 0.05,
+  }));
+
+  // Stars generation
+  const stars = Array.from({ length: 15 }).map((_, i) => ({
+    id: i,
+    top: `${Math.random() * 95 + 2}%`,
+    left: `${Math.random() * 95 + 2}%`,
+    rotation: `${Math.random() * 360}deg`,
+    scale: Math.random() * 0.15 + 0.1,
+    delay: `${Math.random() * 4}s`,
   }));
 
   return (
@@ -144,11 +195,11 @@ export default function App() {
               <div className="w-[280px] h-[190px] bg-cream rounded-sm shadow-[0_40px_80px_rgba(0,0,0,0.6)] relative overflow-visible">
                 {/* Flap */}
                 <div 
-                  className="absolute top-0 left-0 w-0 h-0 border-l-[140px] border-l-transparent border-r-[140px] border-r-transparent border-t-[100px] border-t-[#E5D3B3]"
+                  className="absolute top-0 left-0 w-0 h-0 border-l-[140px] border-l-transparent border-r-[140px] border-r-transparent border-t-[100px] border-t-[#E5D3B3] z-30"
                 />
                 
                 {/* Heart Seal */}
-                <div className="absolute top-[40%] left-[50%] -translate-x-[50%] -translate-y-[50%] z-20 group-hover:scale-110 transition-transform duration-500">
+                <div className="absolute top-[40%] left-[50%] -translate-x-[50%] -translate-y-[50%] z-40 group-hover:scale-110 transition-transform duration-500">
                   <div className="w-[75px] h-[75px] bg-[#c24d67] rounded-full border-4 border-[#a63a52] shadow-lg animate-pulse-custom flex items-center justify-center relative overflow-hidden">
                     {/* Wax texture mock */}
                     <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_white_0%,_transparent_70%)]" />
@@ -162,6 +213,16 @@ export default function App() {
                       R & V
                     </span>
                   </div>
+                </div>
+
+                {/* Drawn flower base on envelope */}
+                <div className="absolute bottom-1 left-1/2 -translate-x-1/2 text-olive/30 w-32 h-16 flex justify-center items-end pointer-events-none z-10">
+                   <svg width="60" height="40" viewBox="0 0 100 60">
+                     <path d="M50,60 Q45,30 20,25 Q30,40 50,60" fill="currentColor" />
+                     <path d="M50,60 Q55,30 80,25 Q70,40 50,60" fill="currentColor" />
+                     <path d="M48,35 Q30,10 50,0 Q70,10 52,35 Z" fill="currentColor" />
+                     <circle cx="50" cy="35" r="5" fill="currentColor" className="text-gold/50" />
+                   </svg>
                 </div>
               </div>
             </motion.div>
@@ -188,9 +249,62 @@ export default function App() {
         )}
       </AnimatePresence>
 
+      {/* BACKGROUND SPARKLES (ONLY VISIBLE WHEN OPEN) */}
+      {isOpen && (
+        <div className="fixed inset-0 pointer-events-none z-[100] overflow-hidden opacity-50">
+          {stars.map((s) => (
+            <div
+              key={s.id + 'star'}
+              className="absolute text-white animate-pulse opacity-60"
+              style={{
+                top: s.top,
+                left: s.left,
+                transform: `rotate(${s.rotation}) scale(${s.scale})`,
+                animationDelay: s.delay,
+                animationDuration: `3s`,
+              }}
+            >
+              <svg width="40" height="40" viewBox="0 0 100 100">
+                <path d="M50,0 Q50,50 100,50 Q50,50 50,100 Q50,50 0,50 Q50,50 50,0 Z" fill="currentColor" />
+              </svg>
+            </div>
+          ))}
+          {sparkles.map((s) => (
+            <div
+              key={s.id + 'main'}
+              className="absolute bg-white rounded-full animate-sparkle opacity-0 shadow-[0_0_10px_white]"
+              style={{
+                top: s.top,
+                left: s.left,
+                width: s.size,
+                height: s.size,
+                animationDelay: s.delay,
+              }}
+            />
+          ))}
+          {flowers.map((f) => (
+            <div
+              key={f.id + 'flower'}
+              className="absolute text-gold pointer-events-none"
+              style={{
+                top: f.top,
+                left: f.left,
+                transform: `rotate(${f.rotation}) scale(${f.scale})`,
+                opacity: f.opacity
+              }}
+            >
+              <svg width="100" height="100" viewBox="0 0 100 100">
+                <path d="M50,10 C60,40 90,40 90,50 C90,60 60,60 50,90 C40,60 10,60 10,50 C10,40 40,40 50,10 Z" fill="currentColor" />
+                <circle cx="50" cy="50" r="10" fill="currentColor" opacity="0.5" />
+              </svg>
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* MAIN CONTENT */}
       {isOpen && (
-        <main className="relative">
+        <main className="relative z-10">
           {/* SECTION 1: WELCOME */}
           <section className="bg-olive py-20 px-4 text-center">
             <FadeInWhenVisible>
@@ -199,7 +313,7 @@ export default function App() {
               
               {/* Decorative Photo Frame */}
               <div className="max-w-[700px] mx-auto px-4">
-                <VintageFrame>
+                <OrnateFrame>
                   <img 
                     src="photo1.jpg" 
                     alt="Bride and Groom" 
@@ -208,14 +322,14 @@ export default function App() {
                       (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800&auto=format&fit=crop";
                     }}
                   />
-                </VintageFrame>
+                </OrnateFrame>
               </div>
               
               <p className="font-cursive text-3xl mt-12 italic text-gold px-5">Однажды и навсегда...</p>
             </FadeInWhenVisible>
           </section>
 
-          <TornPaper to="cream" />
+          <WavyLine to="cream" />
 
           {/* SECTION 2: DATE */}
           <section className="bg-cream py-20 px-5 text-center text-gray-800 overflow-hidden">
@@ -240,7 +354,7 @@ export default function App() {
             </FadeInWhenVisible>
           </section>
 
-          <TornPaper to="olive" />
+          <WavyLine to="olive" />
 
           {/* SECTION 3: LOCATION */}
           <section className="bg-olive py-20 px-4 text-center">
@@ -276,7 +390,7 @@ export default function App() {
             </FadeInWhenVisible>
           </section>
 
-          <TornPaper to="cream" />
+          <WavyLine to="cream" />
 
           {/* SECTION 4: DRESS CODE */}
           <section className="bg-cream py-20 px-5 text-center text-gray-800">
@@ -310,7 +424,7 @@ export default function App() {
             </FadeInWhenVisible>
           </section>
 
-          <TornPaper to="olive" />
+          <WavyLine to="olive" />
 
           {/* SECTION 5: SCHEDULE */}
           <section className="bg-olive py-20 px-5">
@@ -346,7 +460,7 @@ export default function App() {
             </FadeInWhenVisible>
           </section>
 
-          <TornPaper to="cream" />
+          <WavyLine to="cream" />
 
           {/* SECTION 6: RSVP */}
           <section className="bg-cream py-24 px-5 pb-32 text-gray-800">
@@ -369,7 +483,7 @@ export default function App() {
                     // 3. Используйте скрипт для обработки POST запроса
                     // 4. Опубликуйте как веб-приложение (доступ для всех)
                     // 5. Вставьте URL ниже
-                    const scriptUrl = "https://script.google.com/macros/s/AKfycbxYMbeAL0gBtIBtnWbFlxKNlT-1oJRpGs1683RFGVPToicKYR8LoGC6dUZqGN2A-0E/exec"; 
+                    const scriptUrl = "https://script.google.com/macros/s/AKfycbx8LD5K4WVrsN4yyQCgpzFVPuTDD7_isba2nT34Uj3uWrPfxtSERMI_uAFPMQToaKgz/exec"; 
 
                     if (scriptUrl) {
                       fetch(scriptUrl, { method: "POST", body: formData, mode: "no-cors" })
