@@ -199,7 +199,7 @@ export default function App() {
                 <img 
                   src={photo5} 
                   alt="Couple" 
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover bg-olive/20"
                 />
               </div>
             </motion.div>
@@ -334,7 +334,7 @@ export default function App() {
                   <img 
                     src={photo1} 
                     alt="Bride and Groom" 
-                    className="w-full object-cover max-h-[70vh] block transition-transform duration-700 hover:scale-105 rounded-xl shadow-lg"
+                    className="w-full object-cover max-h-[70vh] min-h-[300px] sm:min-h-[500px] bg-olive/10 block transition-transform duration-700 hover:scale-105 rounded-xl shadow-lg"
                   />
               </div>
               
@@ -395,7 +395,7 @@ export default function App() {
                   <img 
                     src={photo2} 
                     alt="Wedding Venue" 
-                    className="w-full object-cover max-h-[60vh] block"
+                    className="w-full object-cover max-h-[60vh] min-h-[300px] sm:min-h-[400px] bg-olive/10 block w-full rounded-none sm:rounded-lg"
                   />
                 </SoftMinimalFrame>
               </div>
@@ -523,17 +523,17 @@ export default function App() {
                     const form = e.target as HTMLFormElement;
                     const formData = new FormData(form);
                     
-                    const drinks = formData.getAll("drinks").join(", ");
+                    const drinks = formData.getAll("drinks");
                     const transport = formData.get("transport") || "";
                     
                     const data = {
                       name: formData.get("name") || "",
-                      wishes: formData.get("wishes") || "",
+                      menu: formData.get("wishes") || "",
                       drinks: drinks,
                       transport: transport
                     };
                     
-                    const scriptUrl = "https://script.google.com/macros/s/AKfycbzrFPHHSC_d9wS8qx8-NdcMdlWMOAfoKMuxEg-Mr-PFg3aDbpncdFk0LUK9LIAAIYRZ/exec"; 
+                    const scriptUrl = "https://script.google.com/macros/s/AKfycbxVu7lW8EvygX0fr7ppqCJF_Vp2BuMnRfCF4x_6kxQ5XDnZr38BpcxQnQfstI5SiuAL/exec"; 
 
                     if (scriptUrl) {
                       fetch(scriptUrl, { 
@@ -648,7 +648,7 @@ export default function App() {
           <section className="relative bg-[#2D3A15] py-20 sm:py-32 px-5 text-center text-cream overflow-hidden min-h-[400px] flex items-center justify-center">
             {/* Full-width photo4 background */}
             <div className="absolute inset-0 z-0">
-              <img src={photo4} alt="Ruslan and Vlada" className="w-full h-full object-cover object-center" />
+              <img src={photo4} alt="Ruslan and Vlada" className="w-full h-full object-cover object-center bg-[#2D3A15]" />
               <div className="absolute inset-0 bg-olive/80 mix-blend-multiply" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#2D3A15] via-[#2D3A15]/60 to-transparent opacity-95" />
             </div>
