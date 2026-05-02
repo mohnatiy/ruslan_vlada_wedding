@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
-import { MapPin, Calendar as CalendarIcon, Heart, Clock, Utensils, Music, GlassWater, Gift, Send, ChevronDown, Bell } from "lucide-react";
+import { MapPin, Calendar as CalendarIcon, Heart, Clock, Utensils, Music, GlassWater, Gift, Send, ChevronDown, Bell, Volume2, VolumeX } from "lucide-react";
+
+import photo1 from './photo1.jpg';
+import photo2 from './photo2.jpg';
+import photo3 from './photo3.jpg';
+import photo4 from './photo4.jpg';
+import photo5 from './photo5.jpg';
 
 const WavyLine = ({ to }: { to: "cream" | "olive" }) => {
   const fill = to === "cream" ? "#FAF9F6" : "#4A5D23";
@@ -22,6 +28,27 @@ const WavyLine = ({ to }: { to: "cream" | "olive" }) => {
     </div>
   );
 };
+
+const BackgroundSketches = () => (
+  <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.03] select-none">
+    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="wedding-pattern" x="0" y="0" width="400" height="400" patternUnits="userSpaceOnUse" patternTransform="rotate(5)">
+          <g stroke="#4A5D23" strokeWidth="1" fill="none">
+            {/* Minimal line sketches */}
+            <path d="M 50 50 Q 80 20 110 50 T 170 50" /> {/* Flower-like curve */}
+            <circle cx="250" cy="100" r="15" /> {/* Ring 1 */}
+            <circle cx="270" cy="110" r="15" /> {/* Ring 2 */}
+            <path d="M 100 250 L 120 230 L 140 250 L 120 270 Z" /> {/* Diamond shape */}
+            <path d="M 300 300 Q 330 270 360 300 T 420 300" />
+            <path d="M 50 350 L 70 330 M 50 330 L 70 350" /> {/* Sparkle */}
+          </g>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#wedding-pattern)" />
+    </svg>
+  </div>
+);
 
 const SoftMinimalFrame = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
   <div className={`relative p-2 sm:p-4 bg-white/50 backdrop-blur-sm rounded-[40px] shadow-[0_15px_30px_rgba(0,0,0,0.1)] border border-white mx-auto ${className}`}>
@@ -54,12 +81,13 @@ const ArchedWindowFrame = ({ children, className = "" }: { children: React.React
   </div>
 );
 
-const FadeInWhenVisible = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => (
+const FadeInWhenVisible = ({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) => (
   <motion.div
     initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "-50px" }}
     transition={{ duration: 1.2, delay, ease: "easeOut" }}
+    className={className}
   >
     {children}
   </motion.div>
@@ -117,6 +145,19 @@ const CountdownTimer = () => {
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = React.useRef<HTMLAudioElement>(null);
+
+  const togglePlay = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -159,7 +200,25 @@ export default function App() {
   }));
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative overflow-x-hidden">
+      <BackgroundSketches />
+      
+      {/* Audio Element */}
+      <audio 
+        ref={audioRef} 
+        loop 
+        src="https://upload.wikimedia.org/wikipedia/commons/e/eb/The_Wandering_Jazz_Band_-_03_-_Blues_For_A_Little_Girl.ogg" 
+      />
+
+      {/* Floating Audio Toggle */}
+      <button 
+        onClick={togglePlay}
+        className="fixed bottom-6 right-6 z-50 w-12 h-12 bg-olive hover:bg-olive/90 text-cream rounded-full flex items-center justify-center shadow-lg transition-transform hover:scale-105"
+        title="Включить / Выключить музыку"
+      >
+        {isPlaying ? <Volume2 size={24} /> : <VolumeX size={24} />}
+      </button>
+
       {/* ENTRANCE SCREEN */}
       <AnimatePresence>
         {!isOpen && (
@@ -193,7 +252,7 @@ export default function App() {
             >
               <div className="w-48 h-48 sm:w-64 sm:h-64 mx-auto border-8 border-white/20 rounded-full overflow-hidden shadow-[0_0_50px_rgba(255,255,255,0.2)] animate-float">
                 <img 
-                  src="./photo5.jpg" 
+                  src={photo5} 
                   alt="Couple" 
                   className="w-full h-full object-cover bg-olive/20"
                 />
@@ -328,7 +387,7 @@ export default function App() {
               {/* Decorative Photo Frame */}
               <div className="max-w-[700px] mx-auto px-4">
                   <img 
-                    src="./photo1.jpg" 
+                    src={photo1} 
                     alt="Bride and Groom" 
                     className="w-full object-cover max-h-[70vh] min-h-[300px] sm:min-h-[500px] bg-olive/10 block transition-transform duration-700 hover:scale-105 rounded-xl shadow-lg"
                   />
@@ -389,7 +448,7 @@ export default function App() {
               <div className="max-w-[800px] mx-auto px-4 mb-10">
                 <SoftMinimalFrame>
                   <img 
-                    src="./photo2.jpg" 
+                    src={photo2} 
                     alt="Wedding Venue" 
                     className="w-full object-cover max-h-[60vh] min-h-[300px] sm:min-h-[400px] bg-olive/10 block w-full rounded-none sm:rounded-lg"
                   />
@@ -447,9 +506,19 @@ export default function App() {
                   </motion.div>
                 ))}
               </div>
-              <p className="text-[11px] italic text-gray-500 max-w-[250px] mx-auto">
+              <p className="text-[11px] italic text-gray-500 max-w-[250px] mx-auto mb-10">
                 Для лесной площадки рекомендуем выбирать удобную обувь.
               </p>
+
+              <div className="max-w-[600px] mx-auto px-4">
+                <SoftMinimalFrame>
+                  <img 
+                    src={photo3} 
+                    alt="Dress Code Inspiration" 
+                    className="w-full object-cover max-h-[50vh] min-h-[300px] bg-olive/5 block rounded-lg shadow-sm"
+                  />
+                </SoftMinimalFrame>
+              </div>
             </FadeInWhenVisible>
           </section>
 
@@ -644,7 +713,7 @@ export default function App() {
           <section className="relative bg-[#2D3A15] py-20 sm:py-32 px-5 text-center text-cream overflow-hidden min-h-[400px] flex items-center justify-center">
             {/* Full-width photo4 background */}
             <div className="absolute inset-0 z-0">
-              <img src="./photo4.jpg" alt="Ruslan and Vlada" className="w-full h-full object-cover object-center bg-[#2D3A15]" />
+              <img src={photo4} alt="Ruslan and Vlada" className="w-full h-full object-cover object-center bg-[#2D3A15]" />
               <div className="absolute inset-0 bg-olive/80 mix-blend-multiply" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#2D3A15] via-[#2D3A15]/60 to-transparent opacity-95" />
             </div>
