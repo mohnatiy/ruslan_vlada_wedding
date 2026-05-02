@@ -174,12 +174,9 @@ export default function App() {
             >
               <div className="w-48 h-48 sm:w-64 sm:h-64 mx-auto border-8 border-white/20 rounded-full overflow-hidden shadow-[0_0_50px_rgba(255,255,255,0.2)] animate-float">
                 <img 
-                  src="photo1.jpg" 
+                  src="/photo1.jpg" 
                   alt="Couple" 
                   className="w-full h-full object-cover"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800&auto=format&fit=crop";
-                  }}
                 />
               </div>
             </motion.div>
@@ -315,12 +312,9 @@ export default function App() {
               <div className="max-w-[700px] mx-auto px-4">
                 <OrnateFrame>
                   <img 
-                    src="photo1.jpg" 
+                    src="/photo1.jpg" 
                     alt="Bride and Groom" 
                     className="w-full object-cover max-h-[70vh] block transition-transform duration-700 hover:scale-105"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800&auto=format&fit=crop";
-                    }}
                   />
                 </OrnateFrame>
               </div>
@@ -366,12 +360,9 @@ export default function App() {
               <div className="max-w-[800px] mx-auto px-4 mb-10">
                 <VintageFrame>
                   <img 
-                    src="photo2.jpg" 
+                    src="/photo2.jpg" 
                     alt="Wedding Venue" 
                     className="w-full object-cover max-h-[60vh] block"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800&auto=format&fit=crop";
-                    }}
                   />
                 </VintageFrame>
               </div>
@@ -476,18 +467,22 @@ export default function App() {
                     const form = e.target as HTMLFormElement;
                     const formData = new FormData(form);
                     
-                    const urlParams = new URLSearchParams();
-                    urlParams.append("name", formData.get("name") as string);
-                    urlParams.append("wishes", formData.get("wishes") as string);
-                    urlParams.append("drinks", formData.get("drinks") as string);
+                    const data = {
+                      name: formData.get("name") || "",
+                      wishes: formData.get("wishes") || "",
+                      drinks: formData.get("drinks") || ""
+                    };
                     
                     const scriptUrl = "https://script.google.com/macros/s/AKfycbwacSs7Rd7bNs4kXA0H8krwHDJ4805PhLPhmdLfHcnZ8dWygwlTV3uQ7wOeMsiJK45N/exec"; 
 
                     if (scriptUrl) {
                       fetch(scriptUrl, { 
                         method: "POST", 
-                        body: urlParams, 
-                        mode: "no-cors"
+                        body: JSON.stringify(data), 
+                        mode: "no-cors",
+                        headers: {
+                          "Content-Type": "text/plain;charset=utf-8"
+                        }
                       })
                         .then(() => alert("Спасибо! Ваш ответ отправлен."))
                         .catch((error) => {
@@ -495,9 +490,8 @@ export default function App() {
                           alert("Ошибка при отправке.");
                         });
                     } else {
-                      const dataObj = Object.fromEntries(urlParams.entries());
-                      console.log("Form Data:", dataObj);
-                      alert("Форма работает! Ваши данные: " + JSON.stringify(dataObj) + "\n\nДля реальной отправки в Google Таблицы нужен URL скрипта.");
+                      console.log("Form Data:", data);
+                      alert("Форма работает! Ваши данные: " + JSON.stringify(data) + "\n\nДля реальной отправки в Google Таблицы нужен URL скрипта.");
                     }
                   }}
                 >
