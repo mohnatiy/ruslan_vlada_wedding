@@ -475,18 +475,23 @@ export default function App() {
                     e.preventDefault();
                     const form = e.target as HTMLFormElement;
                     const formData = new FormData(form);
-                    const data = Object.fromEntries(formData.entries());
+                    const data = {
+                      name: formData.get("name"),
+                      wishes: formData.get("wishes"),
+                      drinks: formData.get("drinks")
+                    };
                     
-                    // ИНСТРУКЦИЯ ПО GOOGLE SHEETS:
-                    // 1. Создайте Google Таблицу
-                    // 2. Инструменты -> Редактор скриптов
-                    // 3. Используйте скрипт для обработки POST запроса
-                    // 4. Опубликуйте как веб-приложение (доступ для всех)
-                    // 5. Вставьте URL ниже
-                    const scriptUrl = "https://script.google.com/macros/s/AKfycbx8LD5K4WVrsN4yyQCgpzFVPuTDD7_isba2nT34Uj3uWrPfxtSERMI_uAFPMQToaKgz/exec"; 
+                    const scriptUrl = "https://script.google.com/macros/s/AKfycbwacSs7Rd7bNs4kXA0H8krwHDJ4805PhLPhmdLfHcnZ8dWygwlTV3uQ7wOeMsiJK45N/exec"; 
 
                     if (scriptUrl) {
-                      fetch(scriptUrl, { method: "POST", body: formData, mode: "no-cors" })
+                      fetch(scriptUrl, { 
+                        method: "POST", 
+                        body: JSON.stringify(data), 
+                        mode: "no-cors",
+                        headers: {
+                          "Content-Type": "text/plain;charset=utf-8"
+                        }
+                      })
                         .then(() => alert("Спасибо! Ваш ответ отправлен."))
                         .catch((error) => {
                           console.error("Ошибка формы:", error);
@@ -511,7 +516,7 @@ export default function App() {
                   
                   <div className="mb-4">
                     <label className="block text-xs font-bold uppercase tracking-widest text-olive mb-2">Пожелания по меню</label>
-                    <select name="menu" className="w-full bg-white border border-gray-200 p-4 rounded-xl focus:ring-2 focus:ring-olive/20 outline-none appearance-none">
+                    <select name="wishes" className="w-full bg-white border border-gray-200 p-4 rounded-xl focus:ring-2 focus:ring-olive/20 outline-none appearance-none">
                       <option>Мясо</option>
                       <option>Рыба</option>
                       <option>Вегетарианское</option>
