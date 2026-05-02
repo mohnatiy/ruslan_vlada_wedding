@@ -150,6 +150,33 @@ const CountdownTimer = () => {
   );
 };
 
+// Move random generation outside to prevent re-renders and fix potential infinity loops
+const sparkles = Array.from({ length: 20 }).map((_, i) => ({
+  id: i,
+  top: `${Math.random() * 100}%`,
+  left: `${Math.random() * 100}%`,
+  delay: `${Math.random() * 3}s`,
+  size: `${Math.random() * 2 + 1}px`,
+}));
+
+const flowers = Array.from({ length: 12 }).map((_, i) => ({
+  id: i,
+  top: `${Math.random() * 90 + 5}%`,
+  left: `${Math.random() * 90 + 5}%`,
+  rotation: `${Math.random() * 360}deg`,
+  scale: Math.random() * 0.2 + 0.15,
+  opacity: Math.random() * 0.15 + 0.05,
+}));
+
+const stars = Array.from({ length: 15 }).map((_, i) => ({
+  id: i,
+  top: `${Math.random() * 95 + 2}%`,
+  left: `${Math.random() * 95 + 2}%`,
+  rotation: `${Math.random() * 360}deg`,
+  scale: Math.random() * 0.15 + 0.1,
+  delay: `${Math.random() * 4}s`,
+}));
+
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -158,41 +185,13 @@ export default function App() {
     const handleScroll = () => {
       const totalScroll = document.documentElement.scrollTop;
       const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scroll = `${(totalScroll / windowHeight) * 100}%`;
-      setScrollProgress((totalScroll / windowHeight) * 100);
+      if (windowHeight > 0) {
+        setScrollProgress((totalScroll / windowHeight) * 100);
+      }
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  // Sparkles generation
-  const sparkles = Array.from({ length: 20 }).map((_, i) => ({
-    id: i,
-    top: `${Math.random() * 100}%`,
-    left: `${Math.random() * 100}%`,
-    delay: `${Math.random() * 3}s`,
-    size: `${Math.random() * 2 + 1}px`,
-  }));
-
-  // Background flowers generation
-  const flowers = Array.from({ length: 12 }).map((_, i) => ({
-    id: i,
-    top: `${Math.random() * 90 + 5}%`,
-    left: `${Math.random() * 90 + 5}%`,
-    rotation: `${Math.random() * 360}deg`,
-    scale: Math.random() * 0.2 + 0.15,
-    opacity: Math.random() * 0.15 + 0.05,
-  }));
-
-  // Stars generation
-  const stars = Array.from({ length: 15 }).map((_, i) => ({
-    id: i,
-    top: `${Math.random() * 95 + 2}%`,
-    left: `${Math.random() * 95 + 2}%`,
-    rotation: `${Math.random() * 360}deg`,
-    scale: Math.random() * 0.15 + 0.1,
-    delay: `${Math.random() * 4}s`,
-  }));
 
   return (
     <div className="min-h-screen relative overflow-x-hidden">
