@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { MapPin, Calendar as CalendarIcon, Heart, Clock, Utensils, Music, GlassWater } from "lucide-react";
+import photo1 from './photo1.jpg';
+import photo2 from './photo2.jpg';
 
 const WavyLine = ({ to }: { to: "cream" | "olive" }) => {
   const fill = to === "cream" ? "#FAF9F6" : "#4A5D23";
@@ -174,7 +176,7 @@ export default function App() {
             >
               <div className="w-48 h-48 sm:w-64 sm:h-64 mx-auto border-8 border-white/20 rounded-full overflow-hidden shadow-[0_0_50px_rgba(255,255,255,0.2)] animate-float">
                 <img 
-                  src="photo1.jpg" 
+                  src={photo1} 
                   alt="Couple" 
                   className="w-full h-full object-cover"
                 />
@@ -312,7 +314,7 @@ export default function App() {
               <div className="max-w-[700px] mx-auto px-4">
                 <OrnateFrame>
                   <img 
-                    src="photo1.jpg" 
+                    src={photo1} 
                     alt="Bride and Groom" 
                     className="w-full object-cover max-h-[70vh] block transition-transform duration-700 hover:scale-105"
                   />
@@ -360,7 +362,7 @@ export default function App() {
               <div className="max-w-[800px] mx-auto px-4 mb-10">
                 <VintageFrame>
                   <img 
-                    src="photo2.jpg" 
+                    src={photo2} 
                     alt="Wedding Venue" 
                     className="w-full object-cover max-h-[60vh] block"
                   />
