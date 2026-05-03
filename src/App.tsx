@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
-import { MapPin, Calendar as CalendarIcon, Heart, Clock, Utensils, Music, GlassWater, Gift, Send, ChevronDown, Bell, X } from "lucide-react";
+import { MapPin, Calendar as CalendarIcon, Heart, Clock, Utensils, Music, GlassWater, Gift, Send, ChevronDown, Bell, X, Phone } from "lucide-react";
 
 import photo1 from './assets/photo1.jpg';
 import photo2 from './assets/photo2.jpg';
 import photo3 from './assets/photo3.jpg';
+import photo4 from './assets/photo4.jpg';
 import photo5 from './assets/photo5.jpg';
 
 const WavyLine = ({ to, color, bgColor, upsideDown = false }: { to?: "cream" | "olive" | "dark", color?: string, bgColor?: string, upsideDown?: boolean }) => {
@@ -256,6 +257,26 @@ export default function App() {
                 <div 
                   className="absolute top-0 left-0 w-0 h-0 border-l-[140px] border-l-transparent border-r-[140px] border-r-transparent border-t-[100px] border-t-[#f2d0d8] z-30"
                 />
+
+                {/* Burgundy Wax Seal - Pulsing */}
+                <div className="absolute top-[80px] left-1/2 -translate-x-1/2 z-[40]">
+                  <motion.div
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    className="relative"
+                  >
+                    <div className="w-14 h-14 bg-[#721c24] rounded-full shadow-[inset_0_0_10px_rgba(0,0,0,0.5),0_5px_15px_rgba(0,0,0,0.3)] flex items-center justify-center border-2 border-[#5a161d] relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent" />
+                      <span className="font-serif text-xl text-white/70 select-none">RV</span>
+                      <div className="absolute top-1 left-2 w-2 h-2 bg-white/10 rounded-full blur-[1px]" />
+                    </div>
+                    <motion.div 
+                      animate={{ opacity: [0.2, 0.5, 0.2], scale: [1, 1.4, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                      className="absolute inset-[-10px] bg-[#721c24] rounded-full -z-10 blur-xl"
+                    />
+                  </motion.div>
+                </div>
                 
                 {/* Drawn flower base on envelope */}
                 <div className="absolute bottom-1 left-1/2 -translate-x-1/2 text-[#c99aa3] w-32 h-16 flex justify-center items-end pointer-events-none z-10">
@@ -275,9 +296,9 @@ export default function App() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.2, duration: 1 }}
-              className="mt-12 font-cursive text-3xl text-gold tracking-widest drop-shadow-md"
+              className="mt-12 font-cursive text-3xl text-gold tracking-widest drop-shadow-md text-center w-full"
             >
-              Открыть сказку
+              Открыть приглашение в сказку
             </motion.p>
           </motion.div>
         )}
@@ -355,22 +376,31 @@ export default function App() {
           </div>
 
           {/* SECTION 1: WELCOME */}
-          <section className="bg-olive py-20 px-4 text-center">
-            <FadeInWhenVisible>
-              <p className="text-[10px] uppercase tracking-[6px] mb-4 opacity-80 px-5">Приглашение</p>
-              <h1 className="font-cursive text-6xl sm:text-7xl mb-10 text-gold drop-shadow-sm px-5">Руслан & Влада</h1>
+          <section className="bg-olive min-h-[80vh] flex flex-col justify-center items-center py-24 px-4 text-center relative overflow-hidden">
+            <FadeInWhenVisible className="z-10 w-full flex flex-col items-center">
+              <p className="text-[11px] uppercase tracking-[8px] mb-6 opacity-90 px-5 font-serif italic text-gold text-center">Приглашают разделить свой счастливый день</p>
+              <h1 className="font-cursive text-7xl sm:text-8xl mb-12 text-gold drop-shadow-xl px-5 leading-tight text-center">Руслан & Влада</h1>
               
               {/* Photo 2: First photo on page 2 */}
-              <div className="max-w-[700px] mx-auto px-4">
+              <div className="max-w-[750px] mx-auto px-4 relative w-full">
+                  <div className="absolute -inset-4 border border-gold/20 rounded-2xl -z-0" />
                   <img 
                     src={photo2} 
                     alt="Bride and Groom" 
-                    className="w-full object-cover max-h-[70vh] min-h-[300px] sm:min-h-[500px] bg-olive/10 block transition-transform duration-700 hover:scale-105 rounded-xl shadow-lg"
+                    className="w-full object-cover max-h-[75vh] min-h-[350px] sm:min-h-[550px] bg-olive/10 block transition-transform duration-1000 hover:scale-105 rounded-xl shadow-2xl relative z-10"
                   />
               </div>
               
-              <p className="font-cursive text-3xl mt-12 italic text-gold px-5">Однажды и навсегда...</p>
+              <p className="font-cursive text-4xl mt-16 italic text-gold px-5 drop-shadow-md text-center">Когда «однажды» становится «навсегда» </p>
             </FadeInWhenVisible>
+            
+            {/* Decorative Arches */}
+            <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20">
+               <svg className="w-full h-full" viewBox="0 0 1200 800">
+                  <path d="M0,100 Q600,0 1200,100" fill="none" stroke="#D4AF37" strokeWidth="0.5" />
+                  <path d="M0,700 Q600,800 1200,700" fill="none" stroke="#D4AF37" strokeWidth="0.5" />
+               </svg>
+            </div>
           </section>
 
           <WavyLine to="cream" />
@@ -386,20 +416,20 @@ export default function App() {
                       initial={{ pathLength: 0, opacity: 0 }}
                       whileInView={{ pathLength: 1, opacity: 1 }}
                       transition={{ duration: 3, ease: "easeInOut" }}
-                      d="M50,35 C50,35 48,25 35,25 C25,25 20,33 20,42 C20,55 35,65 50,80 C65,65 80,55 80,42 C80,33 75,25 65,25 C52,25 50,35 50,35"
+                      d="M50,35 C50,35 48,24 34,24 C24,24 18,32 18,42 C18,56 34,68 50,81 C66,68 82,56 82,42 C82,32 76,24 66,24 C52,24 50,35 50,35"
                       fill="none"
                       stroke="currentColor"
-                      strokeWidth="1.5"
+                      strokeWidth="1.8"
                       strokeLinecap="round"
                     />
                     <motion.path
                       initial={{ pathLength: 0, opacity: 0 }}
                       whileInView={{ pathLength: 1, opacity: 0.7 }}
                       transition={{ duration: 3, delay: 0.5, ease: "easeInOut" }}
-                      d="M52,37 C52,37 50,27 37,27 C27,27 22,35 22,44 C22,57 37,67 52,82 C67,67 82,57 82,44 C82,35 77,27 67,27 C54,27 52,37 52,37"
+                      d="M52,37 C52,37 50,26 36,26 C26,26 21,34 21,43 C21,57 36,67 52,82 C68,67 83,57 83,43 C83,34 78,26 68,26 C53,26 52,37 52,37"
                       fill="none"
                       stroke="currentColor"
-                      strokeWidth="1"
+                      strokeWidth="1.2"
                       strokeLinecap="round"
                     />
                   </svg>
@@ -452,7 +482,8 @@ export default function App() {
           <section className="bg-olive py-20 px-4 text-center relative">
             <FadeInWhenVisible>
               <h2 className="font-serif text-3xl mb-4 text-cream uppercase tracking-widest px-5">Место события</h2>
-              <p className="font-cursive text-5xl text-gold mb-10 px-5">«Онегин»</p>
+              <p className="font-serif text-2xl sm:text-3xl text-gold mb-1 px-5 uppercase tracking-tighter">Загородный клуб Онегин</p>
+              <p className="text-[10px] sm:text-xs text-white mb-10 tracking-[0.4em] uppercase font-bold">Большая веранда</p>
               
               {/* Photo 5: Venue Photo (3rd Photo on Page 2) */}
               <div className="max-w-[800px] mx-auto px-4 mb-10">
@@ -465,7 +496,13 @@ export default function App() {
                 </SoftMinimalFrame>
               </div>
 
-              <p className="text-sm mb-10 opacity-90 max-w-[300px] mx-auto px-5 italic">Тишковское лесничество, Московская обл.</p>
+              <div className="space-y-2 mb-10">
+                <p className="text-sm opacity-90 max-w-[400px] mx-auto px-5 italic">Тишковское лесничество, Московская обл.</p>
+                <div className="flex items-center justify-center gap-2 text-gold/80 text-xs tracking-widest uppercase font-bold">
+                  <MapPin size={14} />
+                  <span>Метро для трансфера: Шипиловская</span>
+                </div>
+              </div>
 
               <div className="rounded-2xl overflow-hidden border-4 border-white mx-auto max-w-[90%] shadow-xl mb-8">
                 <iframe 
@@ -494,30 +531,69 @@ export default function App() {
           <section className="bg-cream py-20 px-5 text-center text-gray-800">
             <FadeInWhenVisible>
               <h2 className="font-serif text-3xl mb-6 uppercase tracking-widest text-olive">Дресс-код</h2>
-              <p className="max-w-[300px] mx-auto text-sm leading-relaxed mb-8">
-                Мы будем рады, если вы поддержите цветовую гамму нашей свадьбы в своих нарядах:
+              <p className="max-w-[400px] mx-auto text-sm leading-relaxed mb-10">
+                Поддержите нас Вашими улыбками и объятиями, а также красивыми нарядами в цветовой гамме мероприятия:
               </p>
-              <div className="grid grid-cols-2 sm:flex sm:justify-center gap-4 mb-10 max-w-[400px] mx-auto">
-                {[
-                  { color: "#4A5D23", label: "Оливковый" },
-                  { color: "#DCAE96", label: "Пудровый" },
-                  { color: "#E5D3B3", label: "Шампань" },
-                  { color: "#8B9474", label: "Шалфей" },
-                ].map((item, idx) => (
-                  <motion.div
-                    key={idx}
-                    whileHover={{ scale: 1.1 }}
-                    className="flex flex-col items-center gap-2"
-                  >
-                    <div 
-                      className="w-16 h-16 rounded-full border-4 border-white shadow-md"
-                      style={{ backgroundColor: item.color }}
-                    />
-                    <span className="text-[10px] uppercase font-bold opacity-60">{item.label}</span>
-                  </motion.div>
-                ))}
+
+              <div className="space-y-12 max-w-[600px] mx-auto">
+                {/* Ladies Palette */}
+                <div className="space-y-4">
+                  <p className="text-[10px] uppercase tracking-[4px] font-bold text-olive/50 font-serif">Для Леди</p>
+                  <div className="grid grid-cols-3 sm:flex sm:flex-wrap justify-center gap-6 justify-items-center">
+                    {[
+                      { color: "#F2D0D8", label: "Пудровый" },
+                      { color: "#C24D67", label: "Роза" },
+                      { color: "#E5D3B3", label: "Шампань" },
+                    ].map((item, idx) => (
+                      <div key={idx} className="flex flex-col items-center gap-3">
+                        <div className="w-14 h-14 rounded-full border-4 border-white shadow-lg" style={{ backgroundColor: item.color }} />
+                        <span className="text-[10px] uppercase font-bold opacity-30 tracking-widest">{item.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-6 justify-items-center max-w-[200px] mx-auto sm:max-w-none">
+                    {[
+                      { color: "#B3C8BA", label: "Мята" },
+                      { color: "#4A5D23", label: "Олива" },
+                    ].map((item, idx) => (
+                      <div key={idx} className="flex flex-col items-center gap-3">
+                        <div className="w-14 h-14 rounded-full border-4 border-white shadow-lg" style={{ backgroundColor: item.color }} />
+                        <span className="text-[10px] uppercase font-bold opacity-30 tracking-widest">{item.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Gentlemen Palette */}
+                <div className="space-y-4">
+                  <p className="text-[10px] uppercase tracking-[4px] font-bold text-olive/50 font-serif">Для Джентльменов</p>
+                  <div className="grid grid-cols-3 sm:flex sm:flex-wrap justify-center gap-6 justify-items-center">
+                    {[
+                      { color: "#2D3A15", label: "Хвоя" },
+                      { color: "#8B9474", label: "Шалфей" },
+                      { color: "#5D4037", label: "Кофе" },
+                    ].map((item, idx) => (
+                      <div key={idx} className="flex flex-col items-center gap-3">
+                        <div className="w-14 h-14 rounded-full border-4 border-white shadow-lg" style={{ backgroundColor: item.color }} />
+                        <span className="text-[10px] uppercase font-bold opacity-30 tracking-widest">{item.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-6 justify-items-center max-w-[200px] mx-auto sm:max-w-none">
+                    {[
+                      { color: "#D5B08D", label: "Песочный" },
+                      { color: "#3A3A3A", label: "Графит" },
+                    ].map((item, idx) => (
+                      <div key={idx} className="flex flex-col items-center gap-3">
+                        <div className="w-14 h-14 rounded-full border-4 border-white shadow-lg" style={{ backgroundColor: item.color }} />
+                        <span className="text-[10px] uppercase font-bold opacity-30 tracking-widest">{item.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
-              <p className="text-[11px] italic text-gray-500 max-w-[250px] mx-auto mb-10">
+
+              <p className="text-[11px] italic text-gray-500 max-w-[250px] mx-auto mt-12 mb-10">
                 Для лесной площадки рекомендуем выбирать удобную обувь.
               </p>
             </FadeInWhenVisible>
@@ -534,10 +610,10 @@ export default function App() {
                 <div className="absolute left-[35px] top-[35px] bottom-[35px] w-[2px] bg-gold/30 -z-0" />
                 
                 {[
-                  { time: "16:00", title: "Welcome", desc: "Сбор гостей и фуршет", icon: <GlassWater /> },
-                  { time: "17:00", title: "Церемония", desc: "Самый важный момент", icon: <Heart /> },
-                  { time: "18:30", title: "Ужин", desc: "Торжественный банкет", icon: <Utensils /> },
-                  { time: "21:00", title: "Танцы", desc: "Праздничная вечеринка", icon: <Music /> },
+                  { time: "15:00", title: "Welcome", desc: "Сбор гостей и фуршет", icon: <Clock /> },
+                  { time: "16:00", title: "Церемония", desc: "Самый важный момент", icon: <Heart /> },
+                  { time: "17:00", title: "Ужин", desc: "Торжественный банкет", icon: <Utensils /> },
+                  { time: "23:00", title: "Финал", desc: "Окончание вечера", icon: <Bell /> },
                 ].map((item, idx) => (
                   <motion.div 
                     key={idx}
@@ -568,9 +644,7 @@ export default function App() {
                 <Gift className="w-12 h-12 mx-auto text-gold mb-6" />
                 <h2 className="font-serif text-3xl mb-6 uppercase tracking-widest text-olive">Пожелания по подаркам</h2>
                 <p className="text-sm leading-relaxed opacity-90 max-w-[400px] mx-auto text-olive/90">
-                  Мы не хотим обременять вас выбором особенного подарка...<br /><br />
-                  Будем рады, если вы поможете нам исполнить наши мечты!<br />
-                  В качестве подарков мы с благодарностью примем конверты.
+                  Мы не хотим обременять вас выбором подарка — будем благодарны вкладу в бюджет нашей семьи.
                 </p>
               </div>
             </FadeInWhenVisible>
@@ -578,11 +652,80 @@ export default function App() {
 
           <WavyLine to="olive" color="#4A5D23" />
 
+          {/* SECTION 6.5: CONTACTS - Premium Redesign */}
+          <section className="bg-olive py-24 px-5 text-cream relative overflow-hidden">
+            {/* Elegant Background Accents */}
+            <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
+            <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
+            
+            <FadeInWhenVisible>
+              <div className="max-w-[700px] mx-auto text-center">
+                <div className="mb-16 space-y-4">
+                  <span className="text-[10px] uppercase tracking-[8px] text-gold/60 font-serif italic">Wedding Concierge</span>
+                  <h2 className="font-serif text-3xl sm:text-4xl uppercase tracking-[0.2em] text-cream">Ваши помощники</h2>
+                  <div className="w-12 h-[1px] bg-gold/40 mx-auto" />
+                  <p className="text-sm opacity-80 italic font-serif max-w-[300px] mx-auto leading-relaxed">Если у вас есть вопросы или сюрпризы — наш организатор всегда на связи:</p>
+                </div>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 sm:gap-8 mb-20">
+                  {/* Elena */}
+                  <motion.div 
+                    whileHover={{ y: -5 }}
+                    className="relative p-10 bg-white/[0.03] border border-white/10 rounded-[3rem] group overflow-hidden backdrop-blur-sm"
+                  >
+                    <div className="absolute -top-10 -right-10 w-32 h-32 bg-gold/5 rounded-full blur-3xl group-hover:bg-gold/10 transition-colors" />
+                    <p className="font-serif text-4xl text-gold mb-4 group-hover:scale-110 transition-transform duration-500">Елена</p>
+                    <div className="flex flex-col items-center gap-4">
+                        <a href="tel:+79150222308" className="flex items-center gap-3 text-lg sm:text-xl font-mono tracking-tight text-cream/80 hover:text-gold transition-colors">
+                            <Phone size={16} className="text-gold/50" />
+                            +7 915 022 2308
+                        </a>
+                        <div className="text-[9px] uppercase tracking-[3px] opacity-40">Звонок / Telegram</div>
+                    </div>
+                  </motion.div>
+
+                  {/* Viktoria */}
+                  <motion.div 
+                    whileHover={{ y: -5 }}
+                    className="relative p-10 bg-white/[0.03] border border-white/10 rounded-[3rem] group overflow-hidden backdrop-blur-sm"
+                  >
+                    <div className="absolute -top-10 -right-10 w-32 h-32 bg-gold/5 rounded-full blur-3xl group-hover:bg-gold/10 transition-colors" />
+                    <p className="font-serif text-4xl text-gold mb-4 group-hover:scale-110 transition-transform duration-500">Виктория</p>
+                    <div className="flex flex-col items-center gap-4">
+                        <a href="tel:+79262711951" className="flex items-center gap-3 text-lg sm:text-xl font-mono tracking-tight text-cream/80 hover:text-gold transition-colors">
+                            <Phone size={16} className="text-gold/50" />
+                            +7 926 271-19-51
+                        </a>
+                        <div className="text-[9px] uppercase tracking-[3px] opacity-40">Звонок / Telegram</div>
+                    </div>
+                  </motion.div>
+                </div>
+
+                <div className="relative inline-block group">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-gold/20 via-cream/20 to-gold/20 rounded-full blur opacity-30 group-hover:opacity-60 transition duration-1000" />
+                  <motion.a 
+                    href="https://t.me/+B-NMidxkT040YjZi"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="relative inline-flex items-center gap-4 bg-[#2D3A15] px-12 py-5 rounded-full border border-gold/40 text-gold hover:text-cream transition-all font-serif italic text-xl shadow-xl"
+                  >
+                    <Send size={22} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    <span>Присоединиться к чату гостей</span>
+                  </motion.a>
+                </div>
+              </div>
+            </FadeInWhenVisible>
+          </section>
+
+          <WavyLine to="olive" color="#4A5D23" bgColor="transparent" />
+
           {/* SECTION 7: RSVP */}
           <section className="bg-olive py-24 px-5 text-cream relative overflow-hidden">
             <FadeInWhenVisible>
               <h2 className="font-serif text-3xl mb-12 text-center uppercase tracking-widest text-cream">Анкета гостя</h2>
-              <div className="max-w-[400px] mx-auto bg-white p-8 rounded-[40px] shadow-2xl space-y-6 border border-white/20 text-gray-800 relative z-10">
+              <div className="max-w-[400px] sm:max-w-[500px] mx-auto bg-white p-6 sm:p-10 rounded-[2.5rem] sm:rounded-[3rem] shadow-2xl space-y-6 border border-white/20 text-gray-800 relative z-10">
                 <AnimatePresence mode="wait">
                   {isRSVPSuccess ? (
                     <motion.div 
@@ -621,10 +764,12 @@ export default function App() {
                           name: formData.get("name") || "",
                           menu: attendance === "yes" ? (formData.get("wishes") || "") : "-",
                           drinks: attendance === "yes" ? drinks : [],
+                          dietary: formData.get("dietary") || "",
+                          comments: formData.get("comments") || "",
                           transport: attendance === "yes" ? transport : "-"
                         };
                         
-                        const scriptUrl = "https://script.google.com/macros/s/AKfycbyW5D_Eo4ocVl38A2sQaw-N4kibDkT5tTA01-hu-9Ow-xFvVe1kL1vNUCBzXNIieRSd/exec"; 
+                        const scriptUrl = "https://script.google.com/macros/s/AKfycbzUL5JsyKY8S1MaHnPTbRDhtrGols2fdkD9_ff4OyE3uKlId3PnNGpSXAigNAJ7SBQ/exec"; 
 
                         if (scriptUrl) {
                           fetch(scriptUrl, { 
@@ -719,26 +864,46 @@ export default function App() {
                             <div>
                               <label className="block text-[10px] font-bold uppercase tracking-[4px] text-olive/50 mb-4">Напитки</label>
                               <div className="grid grid-cols-2 gap-2">
-                                {["Вино (б/к)", "Игристое", "Крепкий алк.", "Безалк."].map((drink) => (
-                                  <label key={drink} className="flex items-center gap-3 text-xs cursor-pointer hover:bg-olive/5 p-3 rounded-xl border border-gray-100 transition-colors">
+                                {["Игристое вино", "Белое вино", "Красное вино", "Виски", "Коньяк", "Водка", "Безалкогольные"].map((drink) => (
+                                  <label key={drink} className="flex items-center gap-3 text-[11px] cursor-pointer hover:bg-olive/5 p-3 rounded-xl border border-gray-100 transition-colors">
                                     <input type="checkbox" name="drinks" value={drink} className="w-4 h-4 accent-olive cursor-pointer" />
-                                    <span className="font-medium whitespace-nowrap">{drink}</span>
+                                    <span className="font-medium">{drink}</span>
                                   </label>
                                 ))}
                               </div>
                             </div>
 
-                            <div className="pb-4">
-                              <label className="block text-[10px] font-bold uppercase tracking-[4px] text-olive/50 mb-3">Трансфер</label>
-                              <div className="relative">
-                                <select name="transport" className="w-full bg-gray-50 border-none p-5 pr-12 rounded-2xl focus:ring-2 focus:ring-olive/20 outline-none appearance-none font-medium text-sm">
-                                  <option>На трансфере от метро</option>
-                                  <option>На своей машине</option>
-                                  <option>Самостоятельно (такси)</option>
-                                </select>
-                                <ChevronDown className="absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
-                              </div>
+                            <div>
+                              <label className="block text-[10px] font-bold uppercase tracking-[4px] text-olive/50 mb-3">Есть ли у вас ограничения по питанию?</label>
+                              <input 
+                                name="dietary"
+                                type="text" 
+                                placeholder="Например: аллергия на орехи"
+                                className="w-full bg-gray-50 border-none p-5 rounded-2xl focus:ring-2 focus:ring-olive/20 outline-none transition-all placeholder:text-gray-300 font-medium text-sm"
+                              />
                             </div>
+
+                            <div>
+                              <label className="block text-[10px] font-bold uppercase tracking-[4px] text-olive/50 mb-3">Ваши вопросы или пожелания</label>
+                              <textarea 
+                                name="comments"
+                                rows={3}
+                                placeholder="То, что мы не спросили..."
+                                className="w-full bg-gray-50 border-none p-5 rounded-2xl focus:ring-2 focus:ring-olive/20 outline-none transition-all placeholder:text-gray-300 font-medium text-sm resize-none"
+                              />
+                            </div>
+
+                              <div className="pb-4">
+                                <label className="block text-[10px] font-bold uppercase tracking-[4px] text-olive/50 mb-3">Трансфер</label>
+                                <div className="relative">
+                                  <select name="transport" className="w-full bg-gray-50 border-none p-5 pr-12 rounded-2xl focus:ring-2 focus:ring-olive/20 outline-none appearance-none font-medium text-sm">
+                                    <option>Трансфер от м. Шипиловская</option>
+                                    <option>На своей машине (нужно парковочное место)</option>
+                                    <option>Самостоятельно (такси)</option>
+                                  </select>
+                                  <ChevronDown className="absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                                </div>
+                              </div>
                           </motion.div>
                         )}
                       </AnimatePresence>
@@ -762,7 +927,7 @@ export default function App() {
           {/* FINAL PHOTO SECTION - Smooth Transition from RSVP */}
           <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-[#1A240A] mt-[-1px]">
             <div className="absolute inset-0 z-0">
-               <img src={photo1} className="w-full h-full object-cover object-top" alt="Final Portrait" />
+               <img src={photo4} className="w-full h-full object-cover object-center" alt="Final Portrait" />
                <div className="absolute inset-0 bg-black/20" />
             </div>
             
