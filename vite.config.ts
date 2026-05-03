@@ -6,7 +6,7 @@ import {defineConfig, loadEnv} from 'vite';
 export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
   return {
-    base: '/ruslan_vlada_wedding/', // Обязательно для корректной работы на GitHub Pages в подпапке
+    base: '/ruslanvladawedding/', // Обязательно для корректной работы на GitHub Pages в подпапке
     plugins: [react(), tailwindcss()],
     define: {
       'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
