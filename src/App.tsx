@@ -382,12 +382,11 @@ export default function App() {
               <h1 className="font-cursive text-7xl sm:text-8xl mb-12 text-gold drop-shadow-xl px-5 leading-tight text-center">Руслан & Влада</h1>
               
               {/* Photo 2: First photo on page 2 */}
-              <div className="max-w-[750px] mx-auto px-4 relative w-full">
-                  <div className="absolute -inset-4 border border-gold/20 rounded-2xl -z-0" />
+              <div className="max-w-[700px] mx-auto px-4 relative w-full flex justify-center">
                   <img 
                     src={photo2} 
                     alt="Bride and Groom" 
-                    className="w-full object-cover max-h-[75vh] min-h-[350px] sm:min-h-[550px] bg-olive/10 block transition-transform duration-1000 hover:scale-105 rounded-xl shadow-2xl relative z-10"
+                    className="w-full object-cover max-h-[75vh] min-h-[350px] sm:min-h-[550px] bg-olive/10 block transition-transform duration-1000 hover:scale-[1.02] rounded-2xl shadow-2xl relative z-10"
                   />
               </div>
               
