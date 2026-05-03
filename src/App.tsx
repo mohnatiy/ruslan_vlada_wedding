@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
-import { MapPin, Calendar as CalendarIcon, Heart, Clock, Utensils, Music, GlassWater, Gift, Send, ChevronDown, Bell } from "lucide-react";
+import { MapPin, Calendar as CalendarIcon, Heart, Clock, Utensils, Music, GlassWater, Gift, Send, ChevronDown, Bell, X } from "lucide-react";
 
 import photo1 from './assets/photo1.jpg';
 import photo2 from './assets/photo2.jpg';
 import photo3 from './assets/photo3.jpg';
-import photo4 from './assets/photo4.jpg';
 import photo5 from './assets/photo5.jpg';
 
-const WavyLine = ({ to }: { to: "cream" | "olive" }) => {
-  const fill = to === "cream" ? "#FAF9F6" : "#4A5D23";
-  const bg = to === "cream" ? "bg-olive" : "bg-cream";
+const WavyLine = ({ to, color, bgColor, upsideDown = false }: { to?: "cream" | "olive" | "dark", color?: string, bgColor?: string, upsideDown?: boolean }) => {
+  const fill = color || (to === "cream" ? "#FAF9F6" : (to === "dark" ? "#1A240A" : "#4A5D23"));
+  const bgStyle = bgColor ? { backgroundColor: bgColor } : {};
+  const bgClass = !bgColor ? (to === "cream" ? "bg-olive" : "bg-cream") : "";
   
   return (
-    <div className={`w-full relative z-20 select-none pointer-events-none -my-[1px] ${bg}`}>
+    <div className={`w-full relative z-20 select-none pointer-events-none -my-[3px] ${bgClass}`} style={bgStyle}>
       <svg
-        viewBox="0 0 1200 100"
+        viewBox="0 0 1200 120"
         preserveAspectRatio="none"
-        className="w-full h-[30px] sm:h-[45px] block"
+        className={`w-full h-[40px] sm:h-[80px] block scale-y-[1.15] ${upsideDown ? 'rotate-180' : ''}`}
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M0,100 L0,50 C150,100 350,0 600,50 C850,100 1050,0 1200,50 L1200,100 Z"
+          d="M0,120 L0,60 C150,120 350,0 600,60 C850,120 1050,0 1200,60 L1200,120 Z"
           fill={fill}
         />
       </svg>
@@ -180,6 +180,12 @@ const stars = Array.from({ length: 15 }).map((_, i) => ({
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isRSVPSuccess, setIsRSVPSuccess] = useState(false);
+  const [isRSVPLoading, setIsRSVPLoading] = useState(false);
+  const [attendance, setAttendance] = useState<string>("yes");
+
+  const { scrollYProgress } = useScroll();
+  const yFinal = useTransform(scrollYProgress, [0.8, 1], [0, -50]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -230,7 +236,7 @@ export default function App() {
             >
               <div className="w-48 h-48 sm:w-64 sm:h-64 mx-auto border-8 border-white/20 rounded-full overflow-hidden shadow-[0_0_50px_rgba(255,255,255,0.2)] animate-float">
                 <img 
-                  src={photo5} 
+                  src={photo1} 
                   alt="Couple" 
                   className="w-full h-full object-cover bg-olive/20"
                 />
@@ -263,15 +269,7 @@ export default function App() {
               </div>
             </motion.div>
 
-            {/* Decorative Flower Drawing on Envelope */}
-            <div className="absolute -bottom-10 -right-10 opacity-20 text-cream pointer-events-none rotate-[-15deg]">
-              <svg width="200" height="200" viewBox="0 0 100 100">
-                <path d="M50,80 Q60,50 80,30" fill="none" stroke="currentColor" strokeWidth="1" />
-                <circle cx="80" cy="30" r="10" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M75,25 Q80,10 85,25" fill="none" stroke="currentColor" />
-                <path d="M85,35 Q100,30 85,25" fill="none" stroke="currentColor" />
-              </svg>
-            </div>
+            {/* Decorative Sketches Removed */}
             
             <motion.p 
               initial={{ opacity: 0 }}
@@ -362,10 +360,10 @@ export default function App() {
               <p className="text-[10px] uppercase tracking-[6px] mb-4 opacity-80 px-5">Приглашение</p>
               <h1 className="font-cursive text-6xl sm:text-7xl mb-10 text-gold drop-shadow-sm px-5">Руслан & Влада</h1>
               
-              {/* Decorative Photo Frame */}
+              {/* Photo 2: First photo on page 2 */}
               <div className="max-w-[700px] mx-auto px-4">
                   <img 
-                    src={photo1} 
+                    src={photo2} 
                     alt="Bride and Groom" 
                     className="w-full object-cover max-h-[70vh] min-h-[300px] sm:min-h-[500px] bg-olive/10 block transition-transform duration-700 hover:scale-105 rounded-xl shadow-lg"
                   />
@@ -382,7 +380,30 @@ export default function App() {
             <FadeInWhenVisible>
               <h2 className="font-serif text-3xl mb-8 uppercase tracking-widest text-olive">19 Июля 2026</h2>
               <div className="relative flex justify-around items-center max-w-[400px] mx-auto py-10 scale-110">
-                <Heart className="absolute inset-0 m-auto text-pink opacity-10 w-48 h-48 -z-0" />
+                <div className="absolute inset-0 m-auto -z-0 pointer-events-none flex items-center justify-center">
+                   <svg viewBox="0 0 100 100" className="w-56 h-56 text-[#c24d67] opacity-40">
+                    <motion.path
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      whileInView={{ pathLength: 1, opacity: 1 }}
+                      transition={{ duration: 3, ease: "easeInOut" }}
+                      d="M50,35 C50,35 48,25 35,25 C25,25 20,33 20,42 C20,55 35,65 50,80 C65,65 80,55 80,42 C80,33 75,25 65,25 C52,25 50,35 50,35"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                    <motion.path
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      whileInView={{ pathLength: 1, opacity: 0.7 }}
+                      transition={{ duration: 3, delay: 0.5, ease: "easeInOut" }}
+                      d="M52,37 C52,37 50,27 37,27 C27,27 22,35 22,44 C22,57 37,67 52,82 C67,67 82,57 82,44 C82,35 77,27 67,27 C54,27 52,37 52,37"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </div>
                 <div className="flex-1 z-10">
                   <p className="text-[10px] font-bold opacity-60">СБ</p>
                   <p className="font-serif text-4xl">18</p>
@@ -402,7 +423,7 @@ export default function App() {
 
               <div className="mt-10 flex justify-center">
                 <a 
-                  href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Свадьба+Романа+и+Виктории&dates=20260719T160000/20260719T230000&details=Свадебное+торжество&location=Ресторан+%C2%ABОнегин%C2%BB"
+                  href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Свадьба+Руслана+и+Влады&dates=20260719T160000/20260719T230000&details=Свадебное+торжество&location=Ресторан+%C2%ABОнегин%C2%BB"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-olive hover:bg-olive/90 text-cream px-6 py-3 rounded-full font-serif transition-all shadow-[0_4px_14px_rgba(74,93,35,0.3)] hover:shadow-[0_6px_20px_rgba(74,93,35,0.4)] hover:-translate-y-1 active:translate-y-0"
@@ -414,21 +435,32 @@ export default function App() {
             </FadeInWhenVisible>
           </section>
 
+          {/* Photo 3: Second photo on page 2 */}
+          <div className="bg-cream pb-12 sm:pb-24 px-4">
+            <FadeInWhenVisible>
+              <div className="max-w-[700px] mx-auto">
+                <SoftMinimalFrame>
+                  <img src={photo3} alt="Couple" className="w-full object-cover max-h-[60vh] min-h-[300px] sm:min-h-[400px]" />
+                </SoftMinimalFrame>
+              </div>
+            </FadeInWhenVisible>
+          </div>
+
           <WavyLine to="olive" />
 
           {/* SECTION 3: LOCATION */}
-          <section className="bg-olive py-20 px-4 text-center">
+          <section className="bg-olive py-20 px-4 text-center relative">
             <FadeInWhenVisible>
               <h2 className="font-serif text-3xl mb-4 text-cream uppercase tracking-widest px-5">Место события</h2>
-              <p className="font-cursive text-5xl text-gold mb-8 px-5">«Онегин»</p>
+              <p className="font-cursive text-5xl text-gold mb-10 px-5">«Онегин»</p>
               
-              {/* Decorative Photo Frame for Location */}
+              {/* Photo 5: Venue Photo (3rd Photo on Page 2) */}
               <div className="max-w-[800px] mx-auto px-4 mb-10">
                 <SoftMinimalFrame>
                   <img 
-                    src={photo2} 
+                    src={photo5} 
                     alt="Wedding Venue" 
-                    className="w-full object-cover max-h-[60vh] min-h-[300px] sm:min-h-[400px] bg-olive/10 block w-full rounded-none sm:rounded-lg"
+                    className="w-full object-cover max-h-[60vh] min-h-[300px] sm:min-h-[400px] bg-olive/10 block rounded-none sm:rounded-lg shadow-2xl"
                   />
                 </SoftMinimalFrame>
               </div>
@@ -465,7 +497,7 @@ export default function App() {
               <p className="max-w-[300px] mx-auto text-sm leading-relaxed mb-8">
                 Мы будем рады, если вы поддержите цветовую гамму нашей свадьбы в своих нарядах:
               </p>
-              <div className="flex justify-center gap-4 mb-10">
+              <div className="grid grid-cols-2 sm:flex sm:justify-center gap-4 mb-10 max-w-[400px] mx-auto">
                 {[
                   { color: "#4A5D23", label: "Оливковый" },
                   { color: "#DCAE96", label: "Пудровый" },
@@ -478,25 +510,16 @@ export default function App() {
                     className="flex flex-col items-center gap-2"
                   >
                     <div 
-                      className="w-14 h-14 rounded-full border-4 border-white shadow-md"
+                      className="w-16 h-16 rounded-full border-4 border-white shadow-md"
                       style={{ backgroundColor: item.color }}
                     />
+                    <span className="text-[10px] uppercase font-bold opacity-60">{item.label}</span>
                   </motion.div>
                 ))}
               </div>
               <p className="text-[11px] italic text-gray-500 max-w-[250px] mx-auto mb-10">
                 Для лесной площадки рекомендуем выбирать удобную обувь.
               </p>
-
-              <div className="max-w-[600px] mx-auto px-4">
-                <SoftMinimalFrame>
-                  <img 
-                    src={photo3} 
-                    alt="Dress Code Inspiration" 
-                    className="w-full object-cover max-h-[50vh] min-h-[300px] bg-olive/5 block rounded-lg shadow-sm"
-                  />
-                </SoftMinimalFrame>
-              </div>
             </FadeInWhenVisible>
           </section>
 
@@ -547,176 +570,239 @@ export default function App() {
                 <p className="text-sm leading-relaxed opacity-90 max-w-[400px] mx-auto text-olive/90">
                   Мы не хотим обременять вас выбором особенного подарка...<br /><br />
                   Будем рады, если вы поможете нам исполнить наши мечты!<br />
-                  В качестве подарков мы с благодарностью примем конверты, валюту, любые драгметаллы, ценные бумаги или криптовалюту.
+                  В качестве подарков мы с благодарностью примем конверты.
                 </p>
               </div>
             </FadeInWhenVisible>
           </section>
 
-          <WavyLine to="olive" />
+          <WavyLine to="olive" color="#4A5D23" />
 
           {/* SECTION 7: RSVP */}
-          <section className="bg-olive py-24 px-5 text-cream">
+          <section className="bg-olive py-24 px-5 text-cream relative overflow-hidden">
             <FadeInWhenVisible>
-              <h2 className="font-serif text-3xl mb-10 text-center uppercase tracking-widest text-cream">Анкета гостя</h2>
-              <div className="max-w-[400px] mx-auto bg-white p-8 rounded-3xl shadow-xl space-y-6 border border-olive/10 text-gray-800">
-                <form 
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    const form = e.target as HTMLFormElement;
-                    const formData = new FormData(form);
-                    
-                    const drinks = formData.getAll("drinks");
-                    const transport = formData.get("transport") || "";
-                    
-                    const data = {
-                      name: formData.get("name") || "",
-                      menu: formData.get("wishes") || "",
-                      drinks: drinks,
-                      transport: transport
-                    };
-                    
-                    const scriptUrl = "https://script.google.com/macros/s/AKfycbxVu7lW8EvygX0fr7ppqCJF_Vp2BuMnRfCF4x_6kxQ5XDnZr38BpcxQnQfstI5SiuAL/exec"; 
+              <h2 className="font-serif text-3xl mb-12 text-center uppercase tracking-widest text-cream">Анкета гостя</h2>
+              <div className="max-w-[400px] mx-auto bg-white p-8 rounded-[40px] shadow-2xl space-y-6 border border-white/20 text-gray-800 relative z-10">
+                <AnimatePresence mode="wait">
+                  {isRSVPSuccess ? (
+                    <motion.div 
+                      key="success"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="py-12 text-center"
+                    >
+                      <div className="w-20 h-20 bg-green-50 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
+                        <Send size={36} />
+                      </div>
+                      <h3 className="font-serif text-3xl text-olive mb-4 italic">Спасибо!</h3>
+                      <p className="text-sm opacity-70 leading-relaxed">Ваш ответ успешно отправлен.<br />Мы с нетерпением ждем встречи!</p>
+                      <button 
+                        onClick={() => setIsRSVPSuccess(false)}
+                        className="mt-10 text-[10px] font-bold uppercase tracking-[4px] text-[#c24d67] hover:underline cursor-pointer opacity-60 hover:opacity-100 transition-opacity"
+                      >
+                        Изменить ответ
+                      </button>
+                    </motion.div>
+                  ) : (
+                    <motion.form 
+                      key="form"
+                      exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        setIsRSVPLoading(true);
+                        const form = e.target as HTMLFormElement;
+                        const formData = new FormData(form);
+                        
+                        const drinks = formData.getAll("drinks") as string[];
+                        const transport = formData.get("transport") || "";
+                        
+                        const data = {
+                          attendance: attendance === "yes" ? "Приду" : "Не смогу",
+                          name: formData.get("name") || "",
+                          menu: attendance === "yes" ? (formData.get("wishes") || "") : "-",
+                          drinks: attendance === "yes" ? drinks : [],
+                          transport: attendance === "yes" ? transport : "-"
+                        };
+                        
+                        const scriptUrl = "https://script.google.com/macros/s/AKfycbyW5D_Eo4ocVl38A2sQaw-N4kibDkT5tTA01-hu-9Ow-xFvVe1kL1vNUCBzXNIieRSd/exec"; 
 
-                    if (scriptUrl) {
-                      fetch(scriptUrl, { 
-                        method: "POST", 
-                        body: JSON.stringify(data), 
-                        mode: "no-cors",
-                        headers: {
-                          "Content-Type": "text/plain;charset=utf-8"
+                        if (scriptUrl) {
+                          fetch(scriptUrl, { 
+                            method: "POST", 
+                            body: JSON.stringify(data), 
+                            mode: "no-cors"
+                          })
+                            .then(() => {
+                              setIsRSVPSuccess(true);
+                              setIsRSVPLoading(false);
+                            })
+                            .catch((error) => {
+                              console.error("Ошибка формы:", error);
+                              setIsRSVPLoading(false);
+                              alert("Ошибка при отправке.");
+                            });
+                        } else {
+                          setTimeout(() => {
+                            setIsRSVPSuccess(true);
+                            setIsRSVPLoading(false);
+                          }, 1000);
                         }
-                      })
-                        .then(() => alert("Спасибо! Ваш ответ отправлен."))
-                        .catch((error) => {
-                          console.error("Ошибка формы:", error);
-                          alert("Ошибка при отправке.");
-                        });
-                    } else {
-                      console.log("Form Data:", data);
-                      alert("Форма работает! Ваши данные: " + JSON.stringify(data) + "\n\nДля реальной отправки в Google Таблицы нужен URL скрипта.");
-                    }
-                  }}
-                >
-                  <div className="mb-4">
-                    <label className="block text-xs font-bold uppercase tracking-widest text-olive mb-2">Ваше Имя</label>
-                    <input 
-                      name="name"
-                      type="text" 
-                      placeholder="Иван Иванов"
-                      required
-                      className="w-full bg-white border border-gray-200 p-4 rounded-xl focus:ring-2 focus:ring-olive/20 outline-none transition-all placeholder:text-gray-300"
-                    />
-                  </div>
-                  
-                  <div className="mb-4">
-                    <label className="block text-xs font-bold uppercase tracking-widest text-olive mb-2">Пожелания по меню</label>
-                    <div className="relative">
-                      <select name="wishes" className="w-full bg-white border border-gray-200 p-4 pr-10 rounded-xl focus:ring-2 focus:ring-olive/20 outline-none appearance-none truncate">
-                        <option>Миньон с картофельным гратеном</option>
-                        <option>Перепелка с жареным кремом из картофеля с белыми грибами</option>
-                        <option>Стейк лосося с кремом из сельдерея, сливочным соусом и красной икрой</option>
-                      </select>
-                      <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
-                    </div>
-                  </div>
+                      }}
+                    >
+                      <div className="mb-8">
+                        <label className="block text-[10px] font-bold uppercase tracking-[4px] text-olive/50 mb-4">Ваше решение</label>
+                        <div className="grid grid-cols-1 gap-3">
+                          <label className="cursor-pointer">
+                            <input 
+                              type="radio" 
+                              name="attendance" 
+                              value="yes" 
+                              checked={attendance === "yes"}
+                              onChange={() => setAttendance("yes")}
+                              className="peer hidden" 
+                            />
+                            <div className="flex items-center justify-between px-5 py-4 border-2 border-gray-100 rounded-2xl peer-checked:bg-olive peer-checked:text-white peer-checked:border-olive transition-all text-sm font-medium group">
+                              <span>С радостью приду</span>
+                              <div className="w-5 h-5 rounded-full border-2 border-gray-200 peer-checked:border-white flex items-center justify-center">
+                                <div className="w-2.5 h-2.5 bg-white rounded-full opacity-0 peer-checked:opacity-100 transition-opacity" />
+                              </div>
+                            </div>
+                          </label>
+                          <label className="cursor-pointer">
+                            <input 
+                              type="radio" 
+                              name="attendance" 
+                              value="no" 
+                              checked={attendance === "no"}
+                              onChange={() => setAttendance("no")}
+                              className="peer hidden" 
+                            />
+                            <div className="flex items-center justify-between px-5 py-4 border-2 border-gray-100 rounded-2xl peer-checked:bg-[#c24d67] peer-checked:text-white peer-checked:border-[#c24d67] transition-all text-sm font-medium">
+                              <span>Не смогу быть</span>
+                              <X className="w-4 h-4 opacity-40" />
+                            </div>
+                          </label>
+                        </div>
+                      </div>
 
-                  <div className="mb-6">
-                    <label className="block text-xs font-bold uppercase tracking-widest text-olive mb-3">Напитки (можно несколько)</label>
-                    <div className="space-y-2">
-                      {["Вино (белое/красное)", "Игристое", "Крепкий алкоголь", "Безалкогольные"].map((drink) => (
-                        <label key={drink} className="flex items-center gap-3 text-sm cursor-pointer hover:bg-olive/5 p-2 rounded-lg transition-colors">
-                          <input type="checkbox" name="drinks" value={drink} className="w-5 h-5 accent-olive cursor-pointer" />
-                          <span>{drink}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
+                      <div className="mb-6">
+                        <label className="block text-[10px] font-bold uppercase tracking-[4px] text-olive/50 mb-3">Ваше Имя</label>
+                        <input 
+                          name="name"
+                          type="text" 
+                          placeholder="Имя и Фамилия"
+                          required
+                          className="w-full bg-gray-50 border-none p-5 rounded-2xl focus:ring-2 focus:ring-olive/20 outline-none transition-all placeholder:text-gray-300 font-medium"
+                        />
+                      </div>
+                      
+                      <AnimatePresence>
+                        {attendance === "yes" && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="overflow-hidden space-y-6"
+                          >
+                            <div className="pt-2">
+                              <label className="block text-[10px] font-bold uppercase tracking-[4px] text-olive/50 mb-3">Основное блюдо</label>
+                              <div className="relative">
+                                <select name="wishes" className="w-full bg-gray-50 border-none p-5 pr-12 rounded-2xl focus:ring-2 focus:ring-olive/20 outline-none appearance-none truncate font-medium text-sm">
+                                  <option>Миньон с картофельным гратеном</option>
+                                  <option>Перепелка с жареным кремом</option>
+                                  <option>Стейк лосося с красной икрой</option>
+                                </select>
+                                <ChevronDown className="absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                              </div>
+                            </div>
 
-                  <div className="mb-8">
-                    <label className="block text-xs font-bold uppercase tracking-widest text-olive mb-2">Как планируете добираться?</label>
-                    <div className="relative">
-                      <select name="transport" className="w-full bg-white border border-gray-200 p-4 pr-10 rounded-xl focus:ring-2 focus:ring-olive/20 outline-none appearance-none truncate">
-                        <option>На трансфере от метро</option>
-                        <option>На своей машине</option>
-                        <option>Самостоятельно (такси)</option>
-                        <option>Своим ходом</option>
-                      </select>
-                      <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
-                    </div>
-                  </div>
-                  
-                  <motion.button 
-                    type="submit"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full bg-[#c24d67] hover:bg-[#a63a52] text-white py-5 rounded-xl font-bold tracking-widest text-sm shadow-xl transition-colors cursor-pointer uppercase"
-                  >
-                    Я обязательно приду
-                  </motion.button>
-                </form>
+                            <div>
+                              <label className="block text-[10px] font-bold uppercase tracking-[4px] text-olive/50 mb-4">Напитки</label>
+                              <div className="grid grid-cols-2 gap-2">
+                                {["Вино (б/к)", "Игристое", "Крепкий алк.", "Безалк."].map((drink) => (
+                                  <label key={drink} className="flex items-center gap-3 text-xs cursor-pointer hover:bg-olive/5 p-3 rounded-xl border border-gray-100 transition-colors">
+                                    <input type="checkbox" name="drinks" value={drink} className="w-4 h-4 accent-olive cursor-pointer" />
+                                    <span className="font-medium whitespace-nowrap">{drink}</span>
+                                  </label>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div className="pb-4">
+                              <label className="block text-[10px] font-bold uppercase tracking-[4px] text-olive/50 mb-3">Трансфер</label>
+                              <div className="relative">
+                                <select name="transport" className="w-full bg-gray-50 border-none p-5 pr-12 rounded-2xl focus:ring-2 focus:ring-olive/20 outline-none appearance-none font-medium text-sm">
+                                  <option>На трансфере от метро</option>
+                                  <option>На своей машине</option>
+                                  <option>Самостоятельно (такси)</option>
+                                </select>
+                                <ChevronDown className="absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                      
+                      <motion.button 
+                        type="submit"
+                        disabled={isRSVPLoading}
+                        whileHover={{ scale: 1.02, y: -2 }}
+                        whileTap={{ scale: 0.98, y: 0 }}
+                        className={`w-full bg-[#1A240A] hover:bg-[#2D3A15] text-white py-6 rounded-2xl font-bold tracking-[0.2em] text-[10px] shadow-2xl transition-all cursor-pointer uppercase mt-4 ${isRSVPLoading ? 'opacity-50 cursor-wait' : ''}`}
+                      >
+                        {isRSVPLoading ? "Отправляем..." : "Подтвердить участие"}
+                      </motion.button>
+                    </motion.form>
+                  )}
+                </AnimatePresence>
               </div>
             </FadeInWhenVisible>
           </section>
 
-          <WavyLine to="cream" />
-
-          {/* SECTION 8: CONTACTS & CHAT */}
-          <section className="bg-cream py-20 px-5 text-center text-gray-800">
-            <FadeInWhenVisible>
-              <h2 className="font-serif text-2xl mb-8 uppercase tracking-widest text-olive">Организация и связи</h2>
-              <div className="flex flex-col sm:flex-row justify-center items-center gap-8 max-w-[600px] mx-auto">
-                <a href="#" className="flex flex-col items-center group">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-500 group-hover:scale-110 transition-transform shadow-md">
-                    <Send size={24} />
-                  </div>
-                  <span className="mt-4 font-bold text-sm tracking-wide">Чат гостей (Telegram)</span>
-                  <span className="text-xs opacity-60">Познакомиться и узнать все новости</span>
-                </a>
-                
-                <a href="#" className="flex flex-col items-center group">
-                  <div className="w-16 h-16 bg-olive/10 rounded-full flex items-center justify-center text-olive group-hover:scale-110 transition-transform shadow-md">
-                    <Heart size={24} />
-                  </div>
-                  <span className="mt-4 font-bold text-sm tracking-wide">Контакты организатора</span>
-                  <span className="text-xs opacity-60">Связь по любым вопросам</span>
-                </a>
-              </div>
-            </FadeInWhenVisible>
-          </section>
-
-          <WavyLine to="olive" />
-
-          {/* CLOSING SECTION "ДО ВСТРЕЧИ! С ЛЮБОВЬЮ, РУСЛАН И ВЛАДА" */}
-          <section className="relative bg-[#2D3A15] py-20 sm:py-32 px-5 text-center text-cream overflow-hidden min-h-[400px] flex items-center justify-center">
-            {/* Full-width photo4 background */}
+          {/* FINAL PHOTO SECTION - Smooth Transition from RSVP */}
+          <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-[#1A240A] mt-[-1px]">
             <div className="absolute inset-0 z-0">
-              <img src={photo4} alt="Ruslan and Vlada" className="w-full h-full object-cover object-center bg-[#2D3A15]" />
-              <div className="absolute inset-0 bg-olive/80 mix-blend-multiply" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#2D3A15] via-[#2D3A15]/60 to-transparent opacity-95" />
+               <img src={photo1} className="w-full h-full object-cover object-top" alt="Final Portrait" />
+               <div className="absolute inset-0 bg-black/20" />
             </div>
             
-            <FadeInWhenVisible className="w-full z-10">
-              <div className="relative z-10 flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-8 sm:gap-16 w-full max-w-[800px] mx-auto px-4">
-                <h3 className="font-serif text-4xl sm:text-6xl uppercase tracking-[0.1em] sm:tracking-[0.2em] text-gold text-center sm:text-left leading-tight drop-shadow-2xl">
-                  ДО ВСТРЕЧИ!
-                </h3>
-                <div className="text-center sm:text-right drop-shadow-xl mt-4 sm:mt-0">
-                  <h3 className="font-serif text-xl sm:text-2xl tracking-[0.1em] sm:tracking-[0.2em] uppercase text-cream/90">
-                    С ЛЮБОВЬЮ,
-                  </h3>
-                  <p className="font-serif text-2xl sm:text-4xl text-gold mt-3 uppercase tracking-widest leading-tight">
-                    РУСЛАН И<br />ВЛАДА
-                  </p>
-                </div>
-              </div>
+            {/* Soft blending gradients */}
+            <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-[#4A5D23] to-transparent z-[1]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#1A240A] z-[1]" />
+            
+            <FadeInWhenVisible className="relative z-10 text-center px-4 w-full">
+               <div className="max-w-[800px] mx-auto py-12">
+                 <motion.p 
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1.5 }}
+                    className="font-cursive text-7xl sm:text-9xl mb-8 text-gold drop-shadow-[0_10px_30px_rgba(0,0,0,0.6)]"
+                 >
+                    До встречи!
+                 </motion.p>
+                 <div className="w-32 h-[1px] bg-gold/50 mx-auto mb-12 shadow-lg" />
+                 <div className="space-y-6">
+                    <p className="text-[10px] sm:text-xs tracking-[0.6em] uppercase opacity-90 text-cream italic font-bold">
+                      С огромной любовью,
+                    </p>
+                    <p className="font-serif text-5xl sm:text-7xl uppercase tracking-[0.15em] text-cream leading-tight drop-shadow-2xl">
+                      Руслан <span className="text-gold">&</span> Влада
+                    </p>
+                 </div>
+               </div>
             </FadeInWhenVisible>
           </section>
 
           {/* FOOTER */}
-          <footer className="bg-[#2D3A15] py-8 text-center text-cream border-t border-gold/20">
-            <p className="font-cursive text-2xl text-gold mb-2">Руслан & Влада</p>
-            <p className="text-[10px] uppercase tracking-[4px] opacity-60">2026.07.19</p>
+          <footer className="bg-[#1A240A] py-20 text-center text-cream relative">
+            <FadeInWhenVisible>
+              <p className="font-cursive text-4xl text-gold mb-6 opacity-90 italic">Руслан & Влада</p>
+              <div className="flex items-center justify-center gap-6 mb-2 opacity-60">
+                <div className="h-px w-12 bg-gold/30" />
+                <p className="text-[11px] uppercase tracking-[10px]">19.07.2026</p>
+                <div className="h-px w-12 bg-gold/30" />
+              </div>
+            </FadeInWhenVisible>
           </footer>
         </main>
       )}
