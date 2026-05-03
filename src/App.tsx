@@ -378,7 +378,7 @@ export default function App() {
           {/* SECTION 1: WELCOME */}
           <section className="bg-olive min-h-[80vh] flex flex-col justify-center items-center py-24 px-4 text-center relative overflow-hidden">
             <FadeInWhenVisible className="z-10 w-full flex flex-col items-center">
-              <p className="text-[11px] uppercase tracking-[8px] mb-6 opacity-90 px-5 font-serif italic text-gold text-center">Приглашают разделить свой счастливый день</p>
+              <p className="text-[11px] uppercase tracking-[8px] mb-6 opacity-100 px-5 font-serif italic text-[#faf9f6] font-bold text-center">Приглашают разделить свой счастливый день</p>
               <h1 className="font-cursive text-7xl sm:text-8xl mb-12 text-gold drop-shadow-xl px-5 leading-tight text-center">Руслан & Влада</h1>
               
               {/* Photo 2: First photo on page 2 */}
@@ -390,7 +390,7 @@ export default function App() {
                   />
               </div>
               
-              <p className="font-cursive text-4xl mt-16 italic text-gold px-5 drop-shadow-md text-center">Когда «однажды» становится «навсегда» </p>
+              <p className="font-cursive text-4xl mt-16 italic text-[#faf9f6] px-5 drop-shadow-md text-center">Когда «однажды» становится «навсегда» </p>
             </FadeInWhenVisible>
             
             {/* Decorative Arches */}
