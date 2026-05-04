@@ -103,7 +103,7 @@ const FadeInWhenVisible = ({ children, delay = 0, className = "" }: { children: 
 );
 
 const CountdownTimer = () => {
-  const targetDate = new Date('2026-07-19T16:00:00').getTime();
+  const targetDate = new Date('2026-07-19T15:00:00').getTime();
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -141,7 +141,7 @@ const CountdownTimer = () => {
         { label: "Секунд", value: timeLeft.seconds }
       ].map((item, idx) => (
         <div key={idx} className="flex flex-col items-center">
-          <div className="w-14 h-14 sm:w-20 sm:h-20 bg-olive rounded-full flex items-center justify-center text-cream font-serif text-xl sm:text-3xl border-2 border-gold/40 shadow-lg mb-2">
+          <div className="w-14 h-14 sm:w-20 sm:h-20 bg-olive rounded-full flex items-center justify-center text-cream font-sans font-bold text-xl sm:text-3xl border-2 border-gold/40 shadow-lg mb-2">
             {item.value}
           </div>
           <span className="text-[10px] sm:text-xs uppercase tracking-wider text-olive/80 font-bold">{item.label}</span>
@@ -267,7 +267,7 @@ export default function App() {
                   >
                     <div className="w-14 h-14 bg-[#721c24] rounded-full shadow-[inset_0_0_10px_rgba(0,0,0,0.5),0_5px_15px_rgba(0,0,0,0.3)] flex items-center justify-center border-2 border-[#5a161d] relative overflow-hidden">
                       <div className="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent" />
-                      <span className="font-serif text-xl text-white/70 select-none">RV</span>
+                      <span className="font-sans font-bold text-2xl text-white/70 select-none">RV</span>
                       <div className="absolute top-1 left-2 w-2 h-2 bg-white/10 rounded-full blur-[1px]" />
                     </div>
                     <motion.div 
@@ -296,7 +296,7 @@ export default function App() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.2, duration: 1 }}
-              className="mt-12 font-cursive text-3xl text-gold tracking-widest drop-shadow-md text-center w-full"
+              className="mt-12 font-sans text-xl sm:text-2xl uppercase text-gold tracking-widest drop-shadow-md text-center w-full"
             >
               Открыть приглашение в сказку
             </motion.p>
@@ -379,7 +379,7 @@ export default function App() {
           <section className="bg-olive min-h-[80vh] flex flex-col justify-center items-center py-24 px-4 text-center relative overflow-hidden">
             <FadeInWhenVisible className="z-10 w-full flex flex-col items-center">
               <p className="text-[11px] uppercase tracking-[8px] mb-6 opacity-100 px-5 font-serif italic text-[#faf9f6] font-bold text-center">Приглашают разделить свой счастливый день</p>
-              <h1 className="font-cursive text-7xl sm:text-8xl mb-12 text-gold drop-shadow-xl px-5 leading-tight text-center">Руслан & Влада</h1>
+              <h1 className="font-great-vibes text-7xl sm:text-8xl mb-12 text-gold drop-shadow-xl px-5 leading-tight text-center">Руслан & Влада</h1>
               
               {/* Photo 2: First photo on page 2 */}
               <div className="max-w-[700px] mx-auto px-4 relative w-full flex justify-center">
@@ -407,7 +407,7 @@ export default function App() {
           {/* SECTION 2: DATE */}
           <section className="bg-cream py-20 px-5 text-center text-gray-800 overflow-hidden">
             <FadeInWhenVisible>
-              <h2 className="font-serif text-3xl mb-8 uppercase tracking-widest text-olive">19 Июля 2026</h2>
+              <h2 className="font-sans text-3xl mb-8 uppercase tracking-widest text-olive font-bold">19 Июля 2026</h2>
               <div className="relative flex justify-around items-center max-w-[400px] mx-auto py-10 scale-110">
                 <div className="absolute inset-0 m-auto -z-0 pointer-events-none flex items-center justify-center">
                    <svg viewBox="0 0 100 100" className="w-56 h-56 text-[#c24d67] opacity-40">
@@ -435,27 +435,27 @@ export default function App() {
                 </div>
                 <div className="flex-1 z-10">
                   <p className="text-[10px] font-bold opacity-60">СБ</p>
-                  <p className="font-serif text-4xl">18</p>
+                  <p className="font-sans text-4xl font-bold">18</p>
                 </div>
                 <div className="flex-1 z-10 transform scale-125">
                   <p className="text-[10px] font-bold text-pink">ВС</p>
-                  <p className="font-serif text-4xl text-pink">19</p>
+                  <p className="font-sans text-4xl font-bold text-pink">19</p>
                 </div>
                 <div className="flex-1 z-10 text-gray-400">
                   <p className="text-[10px] font-bold opacity-60">ПН</p>
-                  <p className="font-serif text-4xl">20</p>
+                  <p className="font-sans text-4xl font-bold">20</p>
                 </div>
               </div>
-              <p className="mt-6 font-medium text-olive/80">Ждем вас к 16:00</p>
+              <p className="mt-6 font-medium text-olive/80">Ждем вас к 15:00</p>
               
               <CountdownTimer />
 
               <div className="mt-10 flex justify-center">
                 <a 
-                  href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Свадьба+Руслана+и+Влады&dates=20260719T160000/20260719T230000&details=Свадебное+торжество&location=Ресторан+%C2%ABОнегин%C2%BB"
+                  href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Свадьба+Руслана+и+Влады&dates=20260719T150000/20260719T230000&details=Свадебное+торжество&location=Ресторан+%C2%ABОнегин%C2%BB"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-olive hover:bg-olive/90 text-cream px-6 py-3 rounded-full font-serif transition-all shadow-[0_4px_14px_rgba(74,93,35,0.3)] hover:shadow-[0_6px_20px_rgba(74,93,35,0.4)] hover:-translate-y-1 active:translate-y-0"
+                  className="inline-flex items-center gap-2 bg-olive hover:bg-olive/90 text-cream px-6 py-3 rounded-full font-sans font-bold transition-all shadow-[0_4px_14px_rgba(74,93,35,0.3)] hover:shadow-[0_6px_20px_rgba(74,93,35,0.4)] hover:-translate-y-1 active:translate-y-0"
                 >
                   <Bell className="w-5 h-5" />
                   <span>Поставить будильник</span>
@@ -480,8 +480,8 @@ export default function App() {
           {/* SECTION 3: LOCATION */}
           <section className="bg-olive py-20 px-4 text-center relative">
             <FadeInWhenVisible>
-              <h2 className="font-serif text-3xl mb-4 text-cream uppercase tracking-widest px-5">Место события</h2>
-              <p className="font-serif text-2xl sm:text-3xl text-gold mb-1 px-5 uppercase tracking-tighter">Загородный клуб Онегин</p>
+              <h2 className="font-sans text-3xl mb-4 text-cream uppercase tracking-widest px-5">Место события</h2>
+              <p className="font-cursive text-4xl sm:text-5xl text-gold mb-4 px-5">Загородный клуб Онегин</p>
               <p className="text-[10px] sm:text-xs text-white mb-10 tracking-[0.4em] uppercase font-bold">Большая веранда</p>
               
               {/* Photo 5: Venue Photo (3rd Photo on Page 2) */}
@@ -499,7 +499,7 @@ export default function App() {
                 <p className="text-sm opacity-90 max-w-[400px] mx-auto px-5 italic">Тишковское лесничество, Московская обл.</p>
                 <div className="flex items-center justify-center gap-2 text-gold/80 text-xs tracking-widest uppercase font-bold">
                   <MapPin size={14} />
-                  <span>Метро для трансфера: Шипиловская</span>
+                  <span>Метро для трансфера: Щелковская</span>
                 </div>
               </div>
 
@@ -529,7 +529,7 @@ export default function App() {
           {/* SECTION 4: DRESS CODE */}
           <section className="bg-cream py-20 px-5 text-center text-gray-800">
             <FadeInWhenVisible>
-              <h2 className="font-serif text-3xl mb-6 uppercase tracking-widest text-olive">Дресс-код</h2>
+              <h2 className="font-sans text-3xl mb-6 uppercase tracking-widest text-olive font-bold">Дресс-код</h2>
               <p className="max-w-[400px] mx-auto text-sm leading-relaxed mb-10">
                 Поддержите нас Вашими улыбками и объятиями, а также красивыми нарядами в цветовой гамме мероприятия:
               </p>
@@ -537,7 +537,7 @@ export default function App() {
               <div className="space-y-12 max-w-[600px] mx-auto">
                 {/* Ladies Palette */}
                 <div className="space-y-4">
-                  <p className="text-[10px] uppercase tracking-[4px] font-bold text-olive/50 font-serif">Для Леди</p>
+                  <p className="text-[10px] uppercase tracking-[4px] font-bold text-olive/50 font-sans">Для Леди</p>
                   <div className="grid grid-cols-3 sm:flex sm:flex-wrap justify-center gap-6 justify-items-center">
                     {[
                       { color: "#F2D0D8", label: "Пудровый" },
@@ -565,7 +565,7 @@ export default function App() {
 
                 {/* Gentlemen Palette */}
                 <div className="space-y-4">
-                  <p className="text-[10px] uppercase tracking-[4px] font-bold text-olive/50 font-serif">Для Джентльменов</p>
+                  <p className="text-[10px] uppercase tracking-[4px] font-bold text-olive/50 font-sans">Для Джентльменов</p>
                   <div className="grid grid-cols-3 sm:flex sm:flex-wrap justify-center gap-6 justify-items-center">
                     {[
                       { color: "#2D3A15", label: "Хвоя" },
@@ -603,7 +603,7 @@ export default function App() {
           {/* SECTION 5: SCHEDULE */}
           <section className="bg-olive py-20 px-5">
             <FadeInWhenVisible>
-              <h2 className="font-serif text-3xl text-center mb-16 text-cream uppercase tracking-widest">Программа дня</h2>
+              <h2 className="font-sans text-3xl text-center mb-16 text-cream uppercase tracking-widest font-bold">Программа дня</h2>
               <div className="max-w-[400px] mx-auto space-y-12 relative">
                 {/* The vertical line */}
                 <div className="absolute left-[35px] top-[35px] bottom-[35px] w-[2px] bg-gold/30 -z-0" />
@@ -625,7 +625,7 @@ export default function App() {
                       {item.time}
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-serif text-xl font-bold mb-1 tracking-wide text-gold">{item.title}</h3>
+                      <h3 className="font-sans text-xl font-bold mb-1 tracking-wide text-gold">{item.title}</h3>
                       <p className="text-sm opacity-80">{item.desc}</p>
                     </div>
                   </motion.div>
@@ -641,7 +641,7 @@ export default function App() {
             <FadeInWhenVisible>
               <div className="max-w-[500px] mx-auto bg-white/40 p-8 sm:p-12 rounded-3xl shadow-lg border border-gold/10">
                 <Gift className="w-12 h-12 mx-auto text-gold mb-6" />
-                <h2 className="font-serif text-3xl mb-6 uppercase tracking-widest text-olive">Пожелания по подаркам</h2>
+                <h2 className="font-sans text-3xl mb-6 uppercase tracking-widest text-olive font-bold">Пожелания по подаркам</h2>
                 <p className="text-sm leading-relaxed opacity-90 max-w-[400px] mx-auto text-olive/90">
                   Мы не хотим обременять вас выбором подарка — будем благодарны вкладу в бюджет нашей семьи.
                 </p>
@@ -660,10 +660,10 @@ export default function App() {
             <FadeInWhenVisible>
               <div className="max-w-[700px] mx-auto text-center">
                 <div className="mb-16 space-y-4">
-                  <span className="text-[10px] uppercase tracking-[8px] text-gold/60 font-serif italic">Wedding Concierge</span>
-                  <h2 className="font-serif text-3xl sm:text-4xl uppercase tracking-[0.2em] text-cream">Ваши помощники</h2>
+                  <span className="text-[10px] uppercase tracking-[8px] text-gold/60 font-sans italic">Wedding Concierge</span>
+                  <h2 className="font-cursive text-4xl sm:text-5xl text-cream">Ваши помощники</h2>
                   <div className="w-12 h-[1px] bg-gold/40 mx-auto" />
-                  <p className="text-sm opacity-80 italic font-serif max-w-[300px] mx-auto leading-relaxed">Если у вас есть вопросы или сюрпризы — наш организатор всегда на связи:</p>
+                  <p className="text-sm opacity-80 italic font-sans max-w-[300px] mx-auto leading-relaxed">Если у вас есть вопросы или сюрпризы — наш организатор всегда на связи:</p>
                 </div>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 sm:gap-8 mb-20">
@@ -673,7 +673,7 @@ export default function App() {
                     className="relative p-10 bg-white/[0.03] border border-white/10 rounded-[3rem] group overflow-hidden backdrop-blur-sm"
                   >
                     <div className="absolute -top-10 -right-10 w-32 h-32 bg-gold/5 rounded-full blur-3xl group-hover:bg-gold/10 transition-colors" />
-                    <p className="font-serif text-4xl text-gold mb-4 group-hover:scale-110 transition-transform duration-500">Елена</p>
+                    <p className="font-cursive text-5xl text-gold mb-4 group-hover:scale-110 transition-transform duration-500">Елена</p>
                     <div className="flex flex-col items-center gap-4">
                         <a href="tel:+79150222308" className="flex items-center gap-3 text-lg sm:text-xl font-mono tracking-tight text-cream/80 hover:text-gold transition-colors">
                             <Phone size={16} className="text-gold/50" />
@@ -689,7 +689,7 @@ export default function App() {
                     className="relative p-10 bg-white/[0.03] border border-white/10 rounded-[3rem] group overflow-hidden backdrop-blur-sm"
                   >
                     <div className="absolute -top-10 -right-10 w-32 h-32 bg-gold/5 rounded-full blur-3xl group-hover:bg-gold/10 transition-colors" />
-                    <p className="font-serif text-4xl text-gold mb-4 group-hover:scale-110 transition-transform duration-500">Виктория</p>
+                    <p className="font-cursive text-5xl text-gold mb-4 group-hover:scale-110 transition-transform duration-500">Виктория</p>
                     <div className="flex flex-col items-center gap-4">
                         <a href="tel:+79262711951" className="flex items-center gap-3 text-lg sm:text-xl font-mono tracking-tight text-cream/80 hover:text-gold transition-colors">
                             <Phone size={16} className="text-gold/50" />
@@ -708,7 +708,7 @@ export default function App() {
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="relative inline-flex items-center gap-4 bg-[#2D3A15] px-12 py-5 rounded-full border border-gold/40 text-gold hover:text-cream transition-all font-serif italic text-xl shadow-xl"
+                    className="relative inline-flex items-center gap-4 bg-[#2D3A15] px-12 py-5 rounded-full border border-gold/40 text-gold hover:text-cream transition-all font-sans font-bold text-xl shadow-xl"
                   >
                     <Send size={22} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                     <span>Присоединиться к чату гостей</span>
@@ -723,7 +723,7 @@ export default function App() {
           {/* SECTION 7: RSVP */}
           <section className="bg-olive py-24 px-5 text-cream relative overflow-hidden">
             <FadeInWhenVisible>
-              <h2 className="font-serif text-3xl mb-12 text-center uppercase tracking-widest text-cream">Анкета гостя</h2>
+              <h2 className="font-cursive text-5xl mb-12 text-center text-cream">Анкета гостя</h2>
               <div className="max-w-[400px] sm:max-w-[500px] mx-auto bg-white p-6 sm:p-10 rounded-[2.5rem] sm:rounded-[3rem] shadow-2xl space-y-6 border border-white/20 text-gray-800 relative z-10">
                 <AnimatePresence mode="wait">
                   {isRSVPSuccess ? (
@@ -736,7 +736,7 @@ export default function App() {
                       <div className="w-20 h-20 bg-green-50 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
                         <Send size={36} />
                       </div>
-                      <h3 className="font-serif text-3xl text-olive mb-4 italic">Спасибо!</h3>
+                      <h3 className="font-sans font-bold text-4xl text-olive mb-4">Спасибо!</h3>
                       <p className="text-sm opacity-70 leading-relaxed">Ваш ответ успешно отправлен.<br />Мы с нетерпением ждем встречи!</p>
                       <button 
                         onClick={() => setIsRSVPSuccess(false)}
@@ -759,13 +759,13 @@ export default function App() {
                         const transport = formData.get("transport") || "";
                         
                         const data = {
-                          attendance: attendance === "yes" ? "Приду" : "Не смогу",
+                          attendance: attendance, // send raw "yes" or "no" because the script translates it
                           name: formData.get("name") || "",
-                          menu: attendance === "yes" ? (formData.get("wishes") || "") : "-",
-                          drinks: attendance === "yes" ? drinks : [],
+                          menu: formData.get("wishes") || "",
+                          drinks: drinks,
                           dietary: formData.get("dietary") || "",
                           comments: formData.get("comments") || "",
-                          transport: attendance === "yes" ? transport : "-"
+                          transport: transport
                         };
                         
                         const scriptUrl = "https://script.google.com/macros/s/AKfycbzUL5JsyKY8S1MaHnPTbRDhtrGols2fdkD9_ff4OyE3uKlId3PnNGpSXAigNAJ7SBQ/exec"; 
@@ -896,7 +896,7 @@ export default function App() {
                                 <label className="block text-[10px] font-bold uppercase tracking-[4px] text-olive/50 mb-3">Трансфер</label>
                                 <div className="relative">
                                   <select name="transport" className="w-full bg-gray-50 border-none p-5 pr-12 rounded-2xl focus:ring-2 focus:ring-olive/20 outline-none appearance-none font-medium text-sm">
-                                    <option>Трансфер от м. Шипиловская</option>
+                                    <option>Трансфер от м. Щелковская</option>
                                     <option>На своей машине (нужно парковочное место)</option>
                                     <option>Самостоятельно (такси)</option>
                                   </select>
@@ -949,7 +949,7 @@ export default function App() {
                     <p className="text-[10px] sm:text-xs tracking-[0.6em] uppercase opacity-90 text-cream italic font-bold">
                       С огромной любовью,
                     </p>
-                    <p className="font-serif text-5xl sm:text-7xl uppercase tracking-[0.15em] text-cream leading-tight drop-shadow-2xl">
+                    <p className="font-great-vibes text-7xl sm:text-9xl tracking-[0.05em] text-cream leading-tight drop-shadow-2xl">
                       Руслан <span className="text-gold">&</span> Влада
                     </p>
                  </div>
@@ -960,7 +960,7 @@ export default function App() {
           {/* FOOTER */}
           <footer className="bg-[#1A240A] py-20 text-center text-cream relative">
             <FadeInWhenVisible>
-              <p className="font-cursive text-4xl text-gold mb-6 opacity-90 italic">Руслан & Влада</p>
+              <p className="font-great-vibes text-4xl text-gold mb-6 opacity-90 italic">Руслан & Влада</p>
               <div className="flex items-center justify-center gap-6 mb-2 opacity-60">
                 <div className="h-px w-12 bg-gold/30" />
                 <p className="text-[11px] uppercase tracking-[10px]">19.07.2026</p>

@@ -1,11 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500&family=Great+Vibes&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;700&family=Great+Vibes&display=swap');
+@import url('https://fonts.cdnfonts.com/css/involve');
+@import url('https://fonts.cdnfonts.com/css/good-vibes');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
-  --font-cursive: "Great Vibes", cursive;
-  --font-display: "Montserrat", sans-serif;
+  --font-sans: "Involve", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Involve", "Playfair Display", ui-serif, Georgia, serif;
+  --font-cursive: "Good Vibes Pro", "Good Vibes", "Great Vibes", cursive;
+  --font-great-vibes: "Great Vibes", cursive;
+  --font-display: "Involve", "Inter", sans-serif;
 
   --color-olive: #4A5D23;
   --color-cream: #FAF9F6;
