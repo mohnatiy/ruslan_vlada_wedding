@@ -273,7 +273,7 @@ export default function App() {
                     <motion.div 
                       animate={{ opacity: [0.2, 0.5, 0.2], scale: [1, 1.4, 1] }}
                       transition={{ duration: 2, repeat: Infinity }}
-                      className="absolute inset-[-10px] bg-[#721c24] rounded-full -z-10 blur-xl"
+                      className="absolute inset-[-10px] bg-[#c24d67] rounded-full -z-10 blur-xl"
                     />
                   </motion.div>
                 </div>
@@ -534,60 +534,38 @@ export default function App() {
                 Поддержите нас Вашими улыбками и объятиями, а также красивыми нарядами в цветовой гамме мероприятия:
               </p>
 
-              <div className="space-y-12 max-w-[600px] mx-auto">
-                {/* Ladies Palette */}
-                <div className="space-y-4">
-                  <p className="text-[10px] uppercase tracking-[4px] font-bold text-olive/50 font-sans">Для Леди</p>
-                  <div className="grid grid-cols-3 sm:flex sm:flex-wrap justify-center gap-6 justify-items-center">
-                    {[
-                      { color: "#F2D0D8", label: "Пудровый" },
-                      { color: "#C24D67", label: "Роза" },
-                      { color: "#E5D3B3", label: "Шампань" },
-                    ].map((item, idx) => (
-                      <div key={idx} className="flex flex-col items-center gap-3">
-                        <div className="w-14 h-14 rounded-full border-4 border-white shadow-lg" style={{ backgroundColor: item.color }} />
-                        <span className="text-[10px] uppercase font-bold opacity-30 tracking-widest">{item.label}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-6 justify-items-center max-w-[200px] mx-auto sm:max-w-none">
-                    {[
-                      { color: "#B3C8BA", label: "Мята" },
-                      { color: "#4A5D23", label: "Олива" },
-                    ].map((item, idx) => (
-                      <div key={idx} className="flex flex-col items-center gap-3">
-                        <div className="w-14 h-14 rounded-full border-4 border-white shadow-lg" style={{ backgroundColor: item.color }} />
-                        <span className="text-[10px] uppercase font-bold opacity-30 tracking-widest">{item.label}</span>
-                      </div>
-                    ))}
-                  </div>
+              <div className="max-w-[600px] mx-auto space-y-10">
+                {/* Row 1: Greens */}
+                <div className="flex justify-center gap-8 sm:gap-12">
+                  {[
+                    { color: "#505f1a", label: "Олива" },
+                    { color: "#d6d994", label: "Шалфей" },
+                  ].map((item, idx) => (
+                    <div key={idx} className="flex flex-col items-center gap-3">
+                      <div className="w-14 h-14 rounded-full border-4 border-white shadow-lg" style={{ backgroundColor: item.color }} />
+                      <span className="text-[10px] uppercase font-bold opacity-30 tracking-widest">{item.label}</span>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Row 2: Pinks */}
+                <div className="flex justify-center gap-8 sm:gap-12">
+                  {[
+                    { color: "#e2878e", label: "Пудра" },
+                    { color: "#e7aeb5", label: "Пион" },
+                  ].map((item, idx) => (
+                    <div key={idx} className="flex flex-col items-center gap-3">
+                      <div className="w-14 h-14 rounded-full border-4 border-white shadow-lg" style={{ backgroundColor: item.color }} />
+                      <span className="text-[10px] uppercase font-bold opacity-30 tracking-widest">{item.label}</span>
+                    </div>
+                  ))}
                 </div>
 
-                {/* Gentlemen Palette */}
-                <div className="space-y-4">
-                  <p className="text-[10px] uppercase tracking-[4px] font-bold text-olive/50 font-sans">Для Джентльменов</p>
-                  <div className="grid grid-cols-3 sm:flex sm:flex-wrap justify-center gap-6 justify-items-center">
-                    {[
-                      { color: "#2D3A15", label: "Хвоя" },
-                      { color: "#8B9474", label: "Шалфей" },
-                      { color: "#5D4037", label: "Кофе" },
-                    ].map((item, idx) => (
-                      <div key={idx} className="flex flex-col items-center gap-3">
-                        <div className="w-14 h-14 rounded-full border-4 border-white shadow-lg" style={{ backgroundColor: item.color }} />
-                        <span className="text-[10px] uppercase font-bold opacity-30 tracking-widest">{item.label}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-6 justify-items-center max-w-[200px] mx-auto sm:max-w-none">
-                    {[
-                      { color: "#D5B08D", label: "Песочный" },
-                      { color: "#3A3A3A", label: "Графит" },
-                    ].map((item, idx) => (
-                      <div key={idx} className="flex flex-col items-center gap-3">
-                        <div className="w-14 h-14 rounded-full border-4 border-white shadow-lg" style={{ backgroundColor: item.color }} />
-                        <span className="text-[10px] uppercase font-bold opacity-30 tracking-widest">{item.label}</span>
-                      </div>
-                    ))}
+                {/* Row 3: Brown */}
+                <div className="flex justify-center">
+                  <div className="flex flex-col items-center gap-3">
+                    <div className="w-14 h-14 rounded-full border-4 border-white shadow-lg" style={{ backgroundColor: "#674230" }} />
+                    <span className="text-[10px] uppercase font-bold opacity-30 tracking-widest">Шоколад</span>
                   </div>
                 </div>
               </div>
@@ -718,7 +696,7 @@ export default function App() {
             </FadeInWhenVisible>
           </section>
 
-          <WavyLine to="olive" color="#4A5D23" bgColor="transparent" />
+          <WavyLine to="olive" color="#505F1A" bgColor="transparent" />
 
           {/* SECTION 7: RSVP */}
           <section className="bg-olive py-24 px-5 text-cream relative overflow-hidden">
